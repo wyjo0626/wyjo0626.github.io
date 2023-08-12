@@ -3,6 +3,8 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const math = require('remark-math');
+const katex = require('rehype-katex')
 const username = 'whdnjsdyd111'
 const repository = 'whdnjsdyd111.github.io'
 
@@ -20,7 +22,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: `${username}`, // Usually your GitHub org/user name.
   projectName: `${repository}`, // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -44,20 +46,35 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io/tree/master/docs',
+          remarkPlugins: [math],
+          rehypePlugins: [katex]
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io/tree/master/docs/blog',
+          remarkPlugins: [math],
+          rehypePlugins: [katex]
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        
       }),
     ],
+  ],
+
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
+    },
   ],
 
   themeConfig:
@@ -66,21 +83,23 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'WYJLab',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'WYJLab Logo',
           src: 'img/logo.svg',
         },
         items: [
+          {to: '/publications', label: 'Publications', position: 'left'},
+          {to: '/projects', label: 'Projects', position: 'left'},
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io',
             label: 'GitHub',
             position: 'right',
           },
@@ -124,12 +143,12 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} WonYongLab, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
