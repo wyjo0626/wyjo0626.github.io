@@ -3,13 +3,13 @@ name: GitHub Pages
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '.github/workflows/main.yml'
       - 'website/**'
   pull_request:
     branches:
-      - master
+      - main
 
 permissions: # Test on github pages
   contents: write
