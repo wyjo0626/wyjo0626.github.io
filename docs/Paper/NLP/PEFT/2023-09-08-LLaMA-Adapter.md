@@ -133,7 +133,7 @@ $$
 learnable gating factor $g_l$ 을 도입하여 attention 의 $S_l^K$ 를 adaptively control
 
 - zero 로 초기화
-- $g_l$ 은 부적합한 prompt 의 영향을 제거한 후 LLaMA 에 더 많은 instruction semanticsㅈ 제공을 위해 크기를 증가시킬 수 있음
+- $g_l$ 은 부적합한 prompt 의 영향을 제거한 후 LLaMA 에 더 많은 instruction semantics 제공을 위해 크기를 증가시킬 수 있음
 - 저자는 Eq 6 의 두 component 에 독립적으로 softmax function 을 적용하고, 첫 번째 항을 $g_l$ 로 곱함
 
 $$
