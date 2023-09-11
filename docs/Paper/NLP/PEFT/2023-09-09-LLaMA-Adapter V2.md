@@ -168,10 +168,171 @@ BERT fine-tuning 을 위한 BitFit 및 visual prompt tuning 을 위한 SSF 가 �
 
 ### Discussion
 
-우리의 공동 훈련 전략 덕분에 LLaMA-Adapter V2는 MiniGPT-4 [78]와 LLaVA [38]와 같은 고품질 멀티모달 지시 데이터가 필요하지 않습니다. 대신 이미지-텍스트 쌍과 지시 따르기 데이터만 필요합니다(표 1에서 비교). 캡션 데이터는 그림 2에서 보여주는 대로 짧은 답변을 포함하여 이미지 이해에 대한 LLMs를 확장하는 역할을 합니다. 한편 언어 전용 지시 데이터는 긴 상세한 문장을 생성할 능력을 보존하기 위해 사용됩니다. 이러한 상호 보완적인 조합으로 LLaMA-Adapter V2는 고품질 멀티모달 지시 데이터 없이도 소규모 이미지-텍스트 및 지시 따르기 데이터만으로 우수한 멀티모달 추론을 달성할 수 있습니다.
+joint training 전략 덕에 MiniGPT-4 와 LLaVA 같은 high-quality multi-modal instruction data 가 불필요
 
+대신 image-text pairs 및 instruction-following 데이터만 요구 (Fig. 1 에서 비교)
 
+captioning data 는 Fig. 2 에서 처럼 short answers 를 포함하여 image understanding 에 대한 LLM 을 확장하는 역할을 해준다.
+
+한편 language-only instruction data 는 long detailed sentences 를 생성할 능력을 보존하기 위해 사용한다.
+
+위와 같은 상호보완적으로 조합하여 LLaMA-Adapter V2 는 high-quality instruction data 없이 소규모의 image-text 및 instruction-following data 만으로 우수한 multi-modal reasoning 을 달성
 
 ## 4.3 Early Fusion of Visual Knowledge
 
 ![Figure 3](image-34.png)
+
+vision 및 language fine-tuning 간의 간섭을 피하기 위해, visual prompts 와 adaptation prompts 간의 직접적인 상호작용 방지를 위해 **_early fusion_** 제안
+
+LLaMA-Adapter 에선 visual prompt input 이 frozen visual encoder 에 의해 순차적으로 encoding 되고 learnable visual projection layer 에 의해 추가되어 각 inserted layer 에 adaptation prompt 결합
+
+- LLaMA-Adapter V2 는 encoded visual tokens 와 adaptation prompt 를 서로다른 Transformer layer 에 fusing 하지 않고 삽입
+  - dataset-shared adaptation prompts : LLaMA-Adapter 를 따라, last $L$ layers (e.g. $L=30$) 에 삽입
+  - input visual prompts : first Transformer layer with zero-initialized attention 에서의 word token 에 직접 연결
+
+이 early fusion 으로 두 가지 fine-tuning target 간의 충돌을 효과적으로 해결하는데 도움되며, proposed joint training 과 함께 사용하여 우수한 multi-modal reasoning 능력을 가짐
+
+## 4.4 Integration with Experts
+
+MiniGPT4 및 LLaVA 모델들은 visual model 과 LLM 연결을 위해 대규모 image-text 훈련이 필요
+
+이에 반해, LLaMA-Adapter V2 는 작은 규모의 image captioning data 에 fine-tuning 하여 높은 data-efficient
+
+하지만 이 방법의 image understanding 능력이 비교적 약하여 때로 부정확하거나 관련 없은 응답을 유발
+
+더 많은 image-text data 수집 및 강력한 multi-modal module 도입 대신, caption, OCR 및 search engines 같은 expert system 을 통합하여 **_additional visual reasoning proficiency_** 을 부여하는 것을 제안
+
+![Figure 4](image-35.png)
+
+- 저자는 caption, detection 및 OCR 같은 expert system 으로 visual instruction-following 능력 향상
+- input image 를 고려하여 pre-trained visual encoder 를 사용하여 visual context 를 encoding 하고 expert system 에게 textual context 의 caption 을 생성하도록 요청
+- COCO Caption 에 pre-trainig 된 LLaMA-Adapter 를 expert system 으로 채택
+- 어떠한 image 및 text model 또는 search engine 을 이 expert system 으로 사용할 수 있음을 주목
+
+위 approach 는 특정 downstream task 에 따라 다양한 expert system 간에 쉽게 전환 가능
+
+# 5. Experiments
+
+## 5.1 Experimental Setups
+
+### Training Data
+
+![Table 1](image-36.png)
+
+LLaMA-Adapter V2 는 52K single-turn instruction data from GPT-4-LLM 및 567K captioning data from COCO Caption 에 훈련
+
+MiniGPT-4 및 LLaVA 와 달리 어떠한 visual instruction data 도 사용하지 않음
+
+또한 ShareGPT 의 80K conversation data 를 사용하여 chatbot system 훈련
+
+### Implementation Details
+
+32 Transformer layers 를 사용한 LLaMA-7B model 의 경우
+
+static adaptation prompts 를 last 31 layers 에 삽입
+
+dynamic visual prompts 는 prompt length 를 20으로 설정하고, 첫 번째 layer 에 삽입
+
+normalization layers, linear layer bias 및 scalie 의 모든 parameter 는 training 중 update 되며, LLaMA 의 나머지 parameter 는 freezing 유지
+
+## 5.2 Stronger Language Instruction Model
+
+bias tuning 및 high-quality instruction data 를 사용한 LLaMA-Adapter V2 는 LLaMA 의 instruction-following 능력을 향상
+
+![Table 2](image-37.png)
+
+Table 1 의 결과에서 처럼, LLaMA-Adapter V2 는 인간의 지시에 포괄적인 답변과 상세한 설명 제공
+
+![Figure 11](image-38.png)
+
+knowledge updating 을 위해 bias tuning 에 더 많은 learnable parameter 를 수반했을 때, language context 에 대한 깊은 이해가 필요한 chatbot system 도 구축이 가능했다.
+
+80K conversation data 를 훈련시키면, 더 강력한 chatbot model 개발
+
+Fig. 11 은 7B 의 chatbot examples 이며,
+
+시스템은 질문에 대답하지만 문맥 이해는 그리 정확하진 않다.
+
+![Figure 10](image-39.png)
+
+모델을 65B 으로 확장하면 (Fig. 10), chatbot 은 더욱 강력하고 대답도 잘 한다.
+
+![Figure 5](image-40.png)
+
+Fig. 5 에서는 GPT-4 를 사용하여 response quality 평가.
+
+LLaMA-Adapter V2 는 total score 및 50/80 qustions 에 대해 ChatGPT 를 이기는 성능 보임
+
+## 5.3 Visual Instruction Model
+
+LLaMA-Adapter 는 주로 language instruction model / close-set vision-language model 인 반면, LLaMA-Adapter V2 는 caption 및 language-only instruction data 에 joinly training 한 강력한 vision instruction model.
+
+이번 섹션에서 LLaMA-Adapter V2 의 image captioning 능력 및 어떻게 GPT-4 같은 일반적인 목적의 multi-modal understanding 시스템으로 확장하는지 보여줌.
+
+또한 expert system 을 통합하여 instruction-following 능력을 더욱 향상
+
+### Image Captioning
+
+LLaMA-Adapter 는 단순히 adaptation prompts 에 visual feature 를 추가하여 multi-modal input 을 지원.
+
+COCO Caption dataset 에 fine-tuning 후, 강력한 image captioning model 로 변했다.
+
+![Table 3](image-41.png)
+
+위 결과에서 LLaMA-Adapter 가 대규모 image-text pretraining 없이 BLIP 과 comparable 결과 달성하는 것 관찰.
+
+하지만 LLM 능력을 재사용 불가능 및 특정 prompt (e.g. Generate caption for this image) 에는 민감하게 된다.
+
+---
+
+early fusion 및 joint training 사용으로, LLaMA-Adapter V2 는 language instruction-following 및 image captioning 이 동시에 수행 가능한 강력한 visual instruction model 이 됐다.
+
+![Figure 6](image-42.png)
+
+위에서 LLaMA-Adapter 및 LLaMA-Adapter V2 의 image captioning 결과를 비교한다.
+
+LLaMA-Adatper 는 대답이 짧은 반면 LLaMA-Adatper V2 는 natural 하고 detail 한 설명을 생성한다.
+
+Failure Case 를 보면, 의도적으로 분포 밖의 예제 (카툰풍)을 선택했을 때 항상 정확한 이미지 설명을 생성하진 않음을 볼 수 있다.
+
+이는 image-text alignment stage 가 부족한 것일 수 있다.
+
+### Visual Understanding
+
+![Figure 7](image-43.png)
+
+Fig. 7 에서 보이듯, image content 에 대한 prompt 를 "why is ..." 및 "what should ..." 같은 형태로 질문했을 경우, 모델은 visual information 을 language context 와 통합하여 더 복잡한 reasoning 및 decision 을 하는 것을 볼 수 있다.
+
+image 에서 question 이 참조하는 객체나 특징을 식별하고 설명하며, context 기반으로 관련 정보나 제안을 해준다.
+
+이는 image-text pairs 와 instruction data 간의 간섭을 해결하는 효과를 보여주며, language 및 vision understanding 이 모두 필요한 현실 세계 응용에 대한 잠재력을 보여준다.
+
+### Integration with Experts
+
+visual understanding 향상을 위해, inference 중 visual expert models 를 통합하여 추가적인 textual contexts 를 제공
+
+![Figure 8](image-44.png)
+
+Fig. 8 에서 caption expert 를 포함한 LLaMA-Adapter V2 를 보여준다.
+
+image 의 visual contents 에 대한 정확하고 상세한 설명을 생성한다.
+
+![Figure 9](image-45.png)
+
+Fig. 9 에서 DocVQA 의 OCR expert 를 사용한 예제를 볼 수 있다.
+
+image 에서 감지된 text 를 활용하여 안경의 가격 같은 구체적인 단서로 질문에 대한 정확한 답변을 생성.
+
+# 6. Conclusion
+
+본 연구는 parameter-efficient visual instructions tuning system 인 **_LLaMA-Adapter V2_** 제안
+
+- joint training on image-text pairs 및 instruction-following data
+  - 이를 통해, pre-trained LLM 을 zero-shot visual instruction model 로 변환
+  - zero-shot visual instruction-following 은 image-text pairs 와 instruction-following data 간의 간섭을 줄여 더욱 향상
+- chatbot 과 같이 강력한 multi-turn dialog 능력을 보유
+- 부정확한 이미지 설명 문제 해결을 위해 expert system 과 통합
+  - expert 통합으로 zero-shot instruction-following 은 수행
+  - understanding 은 LLaVA 보다 뒤쳐지며, expert 로부터의 부정확한 정보 영향을 받을 수 있음
+
+이후 visual-following 향상을 위해 multi-modal instruction dataset 또는 다른 PEFT 방법을 통한 fine-tuning 방법 탐구
