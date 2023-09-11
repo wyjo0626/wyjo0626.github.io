@@ -84,7 +84,9 @@ prompt 를 transformer 의 가장 상단 $L$ layer $(l \leq L)$ 에 삽입한 �
 - learnable adaptation prompt 는 token dimension 을 따라 $T_i$ 과 prefix 로 연결
 
 $$
-[P_l; T_l] \in \mathbb{R}^{(K+M) \times C} \tag{1}
+\begin{equation}
+  [P_l; T_l] \in \mathbb{R}^{(K+M) \times C}
+\end{equation}
 $$
 
 $P_l$ 에서 학습된 instruction knowledge 는 transformer block 의 attention layers 를 통해 subsequent contextual response 를 생성하도록 $T_i$ 에게 효율적으로 가이드함
@@ -102,19 +104,20 @@ $l$-th inserted layer 의 $[P_l; T_l]$ 상단의 $(M + 1)$-th word 를 생성하
 - $t_l \in \mathbb{R}^{1 \times C}$ : 해당 $(M+1)$-th word token
 - attention 매커니즘은 input tokens 을 queries, keys 및 values 로 변환하기 위해 linear projection 에 적용
 
-
 $$
 \begin{align}
-    & Q_l = \text{Linear}_q (\ t_l\ ); \tag{2} \\
-    & K_l = \text{Linear}_k (\ [P_l; T_l; t_l] \ ); \tag{3} \\
-    & V_l = \text{Linear}_v (\ [P_l; T_l; t_l] \ ). \tag{4}
+& Q_l = \text{Linear}_q (\ t_l\ ); \\
+& K_l = \text{Linear}_k (\ [P_l; T_l; t_l] \ ); \\
+& V_l = \text{Linear}_v (\ [P_l; T_l; t_l] \ ).
 \end{align}
 $$
 
 이후 softmax function 전에 $Q_l$ 와 $K_l$ 의 attention scores 를 계산
 
 $$
-S_l = Q_l K_l^T / \sqrt{C} \in \mathbb{R}^{1 \times (K+M+1)} \tag{5}
+\begin{equation}
+  S_l = Q_l K_l^T / \sqrt{C} \in \mathbb{R}^{1 \times (K+M+1)}
+\end{equation}
 $$
 
 이는 new word $t_l$ 와 모든 $K+M+1$ tokens 간의 feature simiarities 를 기록하는 것.
@@ -122,7 +125,9 @@ $$
 한편 $S_l$ 은 두 component 로 재정립될수 있다.
 
 $$
-S_l = [S_l^K; S_l^{M+1}]^T \tag{6}
+\begin{equation}
+  S_l = [S_l^K; S_l^{M+1}]^T
+\end{equation}
 $$
 
 - $S^K_l \in \mathbb{R}^{K+1}$ : $K$ adaptation prompts 의 attention score
@@ -137,7 +142,9 @@ learnable gating factor $g_l$ 을 도입하여 attention 의 $S_l^K$ 를 adaptiv
 - 저자는 Eq 6 의 두 component 에 독립적으로 softmax function 을 적용하고, 첫 번째 항을 $g_l$ 로 곱함
 
 $$
-S^g_l = [\text{softmax}(S_l^K) \cdot g_l ; \ \text{softmax}(S_l^{M+1})]^T \tag{7}
+\begin{equation}
+  S^g_l = [\text{softmax}(S_l^K) \cdot g_l ; \ \text{softmax}(S_l^{M+1})]^T
+\end{equation}
 $$
 
 - separate softmax function 은 두 번째 항이 adaptation prompt 와 관련 없도록 보장
@@ -147,7 +154,9 @@ $$
 마지막으로, $l$-th attention layer 의 output 을 linear projection layer 를 사용하여 계산
 
 $$
-t_l^o = \text{Linear}_o (S_l^g V_l) \in \mathbb{R}^{1 \times C} \tag{8}
+\begin{equation}
+  t_l^o = \text{Linear}_o (S_l^g V_l) \in \mathbb{R}^{1 \times C}
+\end{equation}
 $$
 
 위의 zero-initialized attention 을 사용하면, adaptation prompts 는 점진적으로 transformer 에 새로 습득한 instructional signals 을 주입하는 동시에 LLaMA 의 pre-trained knowledge 를 통합하여 고품질 response 제공 가능
@@ -158,7 +167,7 @@ text instruction 외에도, LLaMA-Adapter 는 다른 modalities input 에 대한
 
 ScieneceQA 를 예로 들자.
 
-<span style="color: #009000">visual</span> 및 <span style="color: #009000">textual contexts</span> 와 해당 <span style="color: #0055FF">question</span> 및 <span style="color: #0055FF">option</span> 을 함께 제공하면, model 은 <span style="color: #FF0000">answer</span> 을 위해 multi-modal understanding 을 수행해야 한다.
+<span style={{color: "#009000"}}>visual</span> 및 <span style={{color: "#009000"}}>textual contexts</span> 와 해당 <span style={{color: "#0055FF"}}>question</span> 및 <span style={{color: "#0055FF"}}>option</span> 을 함께 제공하면, model 은 <span style={{color: "#FF0000"}}>answer</span> 을 위해 multi-modal understanding 을 수행해야 한다.
 
 visual context 로 input image 가 주어진 경우
 
@@ -169,7 +178,9 @@ visual context 로 input image 가 주어진 경우
 - 이후 channel dimension 을 따라 $M$-scale features 를 연결하고 learnable proejction network 적용
 
 $$
-I_p = \text{Projection} \left( \text{Concat} ( \{ I_m \}^M_{m=1} ) \right) \tag{9}
+\begin{equation}
+  I_p = \text{Projection} \left( \text{Concat} ( \{ I_m \}^M_{m=1} ) \right)
+\end{equation}
 $$
 
 - $I_p \in \mathbb{R}^{1 \times C}$
@@ -179,7 +190,9 @@ $$
 $l$-th layer 에 대해 획득한 multi-modal prompt 를 다음과 같이 나타냄
 
 $$
-P_l^v = P_l + \text{Repeat}(I_p) \in \mathbb{R}^{K \times C} \tag{10}
+\begin{equation}
+  P_l^v = P_l + \text{Repeat}(I_p) \in \mathbb{R}^{K \times C}
+\end{equation}
 $$
 
 - $P_l^v$ : image context 로부터의 visual information 을 통합한 adaptation prompt
@@ -262,7 +275,7 @@ Multi-modal 의 경우 input image 의 multi-sacle global feature 추출을 위�
 - 다른 hyperparameter 는 LLaMA-Adapter 와 동일
 - ScienceQA 및 COCO Caption 에서 평가
 
-<span style="color: #009000">visual</span> 및 <span style="color: #009000">textual contexts</span>, <span style="color: #0055FF">question</span> 및 <span style="color: #0055FF">option</span> 그리고 <span style="color: #FF0000">answer</span> 를 LLaMA-Adapter 의 input 으로 사용
+<span style={{color: "#009000"}}>visual</span> 및 <span style={{color: "#009000"}}>textual contexts</span>, <span style={{color: "#0055FF"}}>question</span> 및 <span style={{color: "#0055FF"}}>option</span> 그리고 <span style={{color: "#FF0000"}}>answer</span> 를 LLaMA-Adapter 의 input 으로 사용
 
 ### Performance 
 
