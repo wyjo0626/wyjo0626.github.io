@@ -382,7 +382,7 @@ Prompt ensembling 은 머신 러닝의 긴 역사 중 멀티 시스템을 결합
 - **Prompt ensembling for text generation**
   - generation task 에 대한 prompt ensembling 연구는 상대적으로 적음
   - answer sequence 의 다음 단어의 앙상블될 확률 $P(z_t|x,z_{<t}) := \frac{1}{K} \sum^K_i P(z_t|f_{\textup{prompt, i}}(x), z_{<t})$ 을 기반으로 output 생성
-  - [118]() : 각 prompt $f_{\textup{prompt, i}}(x)$ 에 대한 별도의 모델을 훈련
+  - [118]  : 각 prompt $f_{\textup{prompt, i}}(x)$ 에 대한 별도의 모델을 훈련
     - 각각의 finetuned LM 을 메모리에 저장하기 힘듬
       대신 각 모델의 생성을 디코드한 다음, 생성 확률의 평균을 사용하여 평가
       
@@ -491,8 +491,8 @@ prompt 기반 downstream task learning 엔 두 타입의 파라미터다 있다.
 
 - few-shot 상황에 잠재적인 성능 향상을 가져옴
 - 자연스러운 방법은 모든 훈련 및 테스트 예제에 적용되는 discrete textual template 을 제공하는 것
-- 일반적으로 [117](), [118]() 및 [32]() 이 있음
-- [48]() : LM finetuning 일부와 prompt answer engineering 의 조합으로 prompt engineering 을 줄일 수 있음을 관찰
+- 일반적으로 [117](https://doi.org/10.18653/v1/2021.eacl-main.20), [118](https://doi.org/10.18653/v1/2021.emnlp-main.32) 및 [32](https://arxiv.org/pdf/2012.15723.pdf) 이 있음
+- [48](https://arxiv.org/pdf/2106.13353.pdf) : LM finetuning 일부와 prompt answer engineering 의 조합으로 prompt engineering 을 줄일 수 있음을 관찰
   - input 과 mask 를 template word 없는 "[X][Z]" 로 직접 연결한 간단한 템플릿 _null prompt_ 를 정의
   - 경쟁력 있는 정확도를 달성
   
@@ -788,7 +788,7 @@ prompting 패러다임의 성공은 BERT 같은 pretrain 및 finetune 으로 개
 
 ## 9.9 Calibration of Prompting Methods
 
-Calibration (보정)는 모델이 좋은 확률적 예측을 할 수 있는 능력을 말한다 [33]().
+Calibration (보정)는 모델이 좋은 확률적 예측을 할 수 있는 능력을 말한다 [33](https://www.tandfonline.com/doi/abs/10.1080/00401706.1996.10484418?journalCode=utch20).
 
 answer 예측을 위해 pretrained LMs (예; BART) 의 생성 확률 사용 시, 확률 분포가 일반적으로 잘 보정되어 있지 않아 조심할 필요가 있다.
 
