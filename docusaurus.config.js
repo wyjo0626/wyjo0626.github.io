@@ -48,7 +48,7 @@ const config = {
           editUrl:
             'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io/tree/master/docs',
           remarkPlugins: [math],
-          rehypePlugins: [katex]
+          rehypePlugins: [katex],
         },
         blog: {
           showReadingTime: true,
@@ -82,6 +82,11 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
+      docs: {
+        sidebar: {
+          hideable: true
+        }
+      },
       navbar: {
         title: 'WYJLab',
         logo: {
