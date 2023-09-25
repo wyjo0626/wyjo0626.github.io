@@ -36,6 +36,16 @@ const config = {
     locales: ['en'],
   },
 
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true
+      }),
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -57,7 +67,7 @@ const config = {
           editUrl:
             'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io/tree/master/docs/blog',
           remarkPlugins: [math],
-          rehypePlugins: [katex]
+          rehypePlugins: [katex],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -85,7 +95,7 @@ const config = {
       docs: {
         sidebar: {
           hideable: true
-        }
+        },
       },
       navbar: {
         title: 'WYJLab',
