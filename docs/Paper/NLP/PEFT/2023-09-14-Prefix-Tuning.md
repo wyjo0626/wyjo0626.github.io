@@ -175,7 +175,7 @@ $P_\theta$ 를 직접적으로 update 하는 것은 불안정한 최적화와 �
 
 $P_\theta$ 와 $P_\theta'$ 는 rows 수는 같지만 column 수가 다르다.
 
-training 이 완료되면, 이런 reparameterization parameters 를 drop 하고 prefix ($P_\thta$) 만 저장하면 된다.
+training 이 완료되면, 이런 reparameterization parameters 를 drop 하고 prefix ($P_\theta$) 만 저장하면 된다.
 
 # 5. Experimental Setup
 
