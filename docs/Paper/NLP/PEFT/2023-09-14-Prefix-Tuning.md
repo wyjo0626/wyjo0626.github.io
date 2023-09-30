@@ -333,8 +333,6 @@ sequence 내에서 trainable activations 위치에 따른 성능 조사
 
 또한 trainable activation 을 $x$ 와 $y$ 사이 (i.e. $[x; \text{INFIX}; y]$) 에도 위치하며 이를 infix-tuning 이라 한다.
 
-![Table 5](image-69.png)
-
 Table 5 (하단) 에서 infix-tuning 이 prefix-tuning 보다 약간 성능이 낮다는 것을 보여준다. 
 
 이는 prefix-tuning 이 $x$ 와 $y$ 의 activation 에 영향을 미칠 수 있지만 infix-tuning 은 $y$ 의 activation 에만 영향을 미칠 수 있기 때문이다.
