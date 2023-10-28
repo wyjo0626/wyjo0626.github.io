@@ -196,15 +196,188 @@ BoolQ, CB, COPA, MultiRC, ReCoRD, RTE, WiC, WSC
 
 encoder-decoder T5 model 및 encoder-only BERT 모델에서의 성능을 실험하며, BERT-Base (110M), T5-Base (220M) 및 T5-Large(770M) 에 초점을 둔다.
 
+### BERT
+
+sequence 앞에 trainable prompt 삽입하며 그 앞에 [CLS] token 삽입
+
+LM 에는 $\hat{x}$ 을 입력한다.
+
+$\hat{x} = concat[E([CLS]), P' , E(S[EOS])]$
+
+- $P'$ : reparameterized soft prompt 의 embedding matrix
+- [CLS], [EOS] : special tokens
+- E : tokenization 및 embedding 추출
+
+input text $\hat{x}$ 의 클래스 예측을 위해 BERT original 설정과 [CLS] token 의 encoder representation $h_{[CLS]}$ 을 사용하며 $w$ 로 parameterzie 된 linear transformation 과 softmax layer 을 추가한다.
+
+$$
+p(y = c|h) = \frac{e^{w_c h_{[CLS]}}}{\sum_{k \in \mathcal{C}}e^{w_k h_{[CLS]}}}
+$$
+
+이후 prompt embedding, linear head, reparameterization network 에 gradient update 를 위해 cross-entropy loss 를 적용한다
+
+### T5
+
+T5 에선 all tasks 를 language modeling task 로 변환
+
+이 설정에선, classification task 를 conditional generation 으로 모델링하며, 여기서 output 은 class label 을 나타내는 token 의 sequence 이다.
+
+input text embedding 앞에 reparameterized prompt embedding $P'$ 를 덧붙여 total input $\hat{x} = concat[P', E(S)]$ 이 PLM 에 전달된다.
+
+T5 은 input tokens 에 multi-headed self-attention 적용 후 position-wise feed-forward layers 로 target token 에 대한 분포 출력한다.
+
+cross-entropy loss 로 prompt embeddings 및 reparameterization network 의 parameter 를 훈련한다.
+
 ## 4.3 Baselines
 
+Residual Prompt Tuning 를 두 카테고리: prompt reparameterization 및 PEFT 에 대해 비교한다.
 
+- residual reparameterization 이 prompt tuning 을 얼마나 향상시키는지 연구하고 다른 기술과 비교
+  - original prompt tuning (PT)
+  - PT with MLP reparameterization
+  - PT with LSTM
+  - fine-tuning
+- residual prompt tuning 의 이점을 기존 PEFT 와 비교
+  - AdapterDrop
+  - SPoT
+  - ATTEMPT
+
+## 4.4 Experimental setup
+
+모든 prompt-tuning based 실험에서 prompt tuning 의 프로토콜을 따름
+
+특별한 명시가 없다면 표준 메트릭을 사용한다고 한다.
+
+PEFT 비교에서는 PEFT 훈련 프로토콜을 따른다고 한다.
 
 # 5. Results
 
-# 5.1 Main Results
+## 5.1 Main Results
 
-# 5.6 Ablation studies
+### 5.1.1 Comparison with prompt tuning
+
+![Table 1](image-102.png)
+
+Residual prompt tuning 및 기존 prompt tuning 과 두 가지 reparameterization methods (MLP 및 LSTM) 비교한다.
+
+![Table 2](image-103.png)
+
+위는 각 모델에 10-tokens 및 100-tokens 를 비교한 결과다.
+
+residual prompt tuning 이 다른 방법보다 우수한 성능을 보인다
+
+- 10-tokens 에서 T5B, T5L 에서 +3 points 개선, 100-tokens 에선 T5B 가 +7 points 이상 개선
+- Table 1 결과는 10-token prompt 로 실험했으며, 작업결로 일관된 개선을 보인다.
+
+![Figure 3](image-104.png)
+
+Fig. 3 에서 보이듯, residual prompt tuning 은 다른 방법보다 더 빠른 수렴을 이끈다.
+
+reparameterization network 의 residual connection 은 성능 향상에 중요한 역할을 했다. (non skip connection MLP 는 prompt tuning 보다 느리게 수렴)
+
+저자는 skip connection 이 identity function (linearity) 를 학습하는 것을 우회하고 original embedding 의 "top" 에 project 할 수 있게 한다고 가설을 세운다. ([Appendix B.2](#b2-covergence-of-different-prompt-tuning-approaches))
+
+### 5.1.2 Other parameter-efficient methods
+
+저자는 SuperGLUE 에서 다양한 PEFT 들과 성능 비교
+
+설정은 Prompt Tuning 을 따르며, 5개의 SuperGLUE task 에서 T5-Base 100-tokens prompt 로 훈련시킨다.
+
+![Table 3](image-105.png)
+
+- Table 3a 에서 residual prompt tuning 이 평균적으로 +10 points 큰 성능 향상 이룸
+- 저자의 방법 중 주요 이점은 강력한 결과를 위한 source task transfer learning 이 필요하지 않다는 것
+  - 이는 SPoT 과 ATTEMPT 와 대조적
+- Table 3b 에서 PEFT 내용을 비교
+  - reparameterization network 는 훈련 후 폐기되어 original prompt tuning 과 추가 추론 비용이 같다
+  - adapter-based 방법들과 비교해 25배 적은 파라미터만 필요
+  - 사전 훈련이 필요 없다
+
+residual prompt tuning 의 parameter-efficient 에 대한 내용은 [Appendix A.6](#a6-parameter-efficiency-of-residual-prompt-tuning).
+
+## 5.2 Robustness to the choice of learning rate
+
+넓은 범위의 learning rate 에서 RESIDUAL PROMPT TUNING 성능 연구 (Fig. 4)
+
+![Figure 4](image-106.png)
+
+이전 연구들은 prompt tuning 이 learning rate 에 민감하여 하이퍼파라미터 탐색이 필요하다 보고한다 [Prompt Tuning, SPoT].
+
+저자는 Prompt Tuning 의 learning rate {0.001, 0.01, 0.03, 0.3, 10} 으로 SuperGLUE 평가하고, 공정한 비교를 위해 안정적인 T5-Large 및 100 tokens prompt 사용.
+
+- residual reparameterization 은 learning rate 범위에서 prompt tuning 성능을 안정화시키는데 도움 줌
+- 기존 prompt tuning 은 변동이 있지만, RESIDUAL RPOMPT TUNING 은 견고하며, 0.01 ~ 10 사이인 경우, 성능이 안정적이며 평균 2 points 미만의 변동이 나타난다.
+
+## 5.3 Robustness to the prompt initialization
+
+Prompt Tuning 연구에선 prompt parameter 초기화가 최종 성능에 영향을 미치는 것을 발견.
+
+구체적으로, sampled vocalbulary embeddings 을 초기화하는 것은 random uniform initialization 에 비해 평균 SuperGLUE 성능 +10 points 향상 시켰다. 이에 대한 RESIDUAL PROMPT TUNING 성능에도 조사한다.
+
+![Table 4](image-107.png)
+
+10 tokens prompt 를 사용한 T5B 모델을 사용
+
+- RESIDUAL PROMPT TUNING 이 프롬프트 초기화 방법에 견고한 것을 볼 수 있음
+- random uniform initialization 과 sampled vocabulary  두 결과가 비슷한 성능 달성
+- 특이한 점은 초기화 효과가 데이터셋 크기가 작은 CB (250 sample)인 경우 더 두드러진다는 것이다.
+
+## 5.4 Prompt tuning in few-shot setting
+
+적은 양의 데이터로 실험을 더 진행했다.
+
+![Figure 5](image-108.png)
+
+각 클래스 당 5, 20, 100개 샘플 추출하여, 선택된 샘플로 인한 분산을 피하기 위 각 task 에 대해 모든 실험에서 동일한 학습 집합을 고정함.
+
+저자는 T5-Large 및 100 tokens prompts 를 사용했다.
+
+RESIDUAL PROMPT TUNING 은 적은 양의 데이터에서도 효과적이며, 5 및 20개 샘플에 대해 각각 +7 및 +2 points 향상시켰다.
+
+## 5.5 Performance and prompt length
+
+저자는 더 작은 prompt 로 성능을 평가하고, Prompt Tuning 과 평가
+
+![Table 5](image-109.png)
+
+T5-Large 모델로 길이가 2, 10 및 100 tokens 인 prompt 의 성능을 탐색한다.
+
+RESIDUAL PROMPT TUNING 은 모든 prompt 길이에서 성능 향상이 있었으며, 각각 2, 10 및 100 tokens 에 대해 평균적으로 +2.6, +1.1 및 +0.8 points 향상 달성
+
+## 5.6 Ablation studies
+
+### Parameter sharing.
+
+각 prompt 가 MLP 로 skip connection 을 통해 reparameterization 될 때의 성능을 평가함으로써 sharing reparameterization network 의 영향을 ablation 한다.
+
+![Table 6](image-110.png)
+
+네 가지 SuperGLUE task 를 선택 (CB, COPA, WiC, RTE) 했으며, 작은 데이터 범위에선 sharing reparameterization network 가 유리한 것을 발견했다.
+
+더 큰 데이터셋에서는 더 많은 trained parameters 를 희생함으로써 더 나은 성능을 달성하였다.
+
+### Overparameterization
+
+최종 성능에 미치는 overparameterization 영향 연구를 위해 MLP width 를 albation 하여 MLP hidden layer 의 차원 범위를 변화시킴: {5, 10, 50, 100, 400, 1500}
+
+![Figure 6](image-111.png)
+
+차원 증가에 따라 성능 향상이 있으며, 차원이 50 Unit 이상으로 증가하면 성능이 포화된다.
+
+# 7. Conclusion
+
+RESIDUAL PROMPT TUNING 을 제안하며, 이는 prompt embedding 의 residual reparameterization 으로 soft prompt 를 효과적으로 학습
+
+이 방법에 대한 넓은 하이퍼파라미터 탐색, 긴 훈련 시간 및 source task 에서의 pre-train 없이 효과적으로 학습할 수 있게 한다.
+
+이 방법은 SuperGLUE 에서 Prompt Tuning 등과 비교해 뛰어난 성능을 보이는 것을 보여준다. 또한 하이퍼파라미터 선택 (learning rate, prompt initialization)에 견고하며, 수렴을 빠르게 하고 적은 양의 데이터에도 효과적이다.
+
+### Limitations
+
+1. 성능이 fine-tuning 과 비교하면 만족스럽진 않음. (예: T5-L with 100 tokens prompt 에서 SuperGLUE 평균 점수에서 7.8 points 차이)
+2. reparameterization network 훈련을 위해 prompt tuning 보다 약간 더 많은 매개변수 사용
+
+본 논문은 encoder-decoder(T5) 및 encoder-only(BERT) 모델에 초점을 맞추어 있다.
 
 # Appendix
 
@@ -212,7 +385,36 @@ encoder-decoder T5 model 및 encoder-only BERT 모델에서의 성능을 실험�
 
 ## A.6 Parameter-efficiency of RESIDUAL PROMPT TUNING
 
+RESIDUAL PROMPT TUNING 의 total trainable parameter 수는 다음과 같이 구성된다.
+
+1. trainable prompt embeddings
+2. reparameterization network
+   - down-projection $W_{down} \in \mathbb{R}^{d \times m}$ layer
+   - up-projection $W_{up} \in \mathbb{R}^{m \times d}$ layer
+     - $d$ : embedding 차원
+     - $m$ : MLP bottleneck size
+     - $N$ : prompt tokens 수
+   - LayerNorm
+
+$d \times N$ osft prompt parameters 와 reparameterization network 의 $m \times d + d \times + 2d = 2dm + 2d$ parameter 가 있다.
+
+따라서, RESIDUAL PROMPT TUNING 은 $2dm + 2d + dN$ trainable parameter 가 있는 셈이다.
+
+그리고 훈련 후 이 reparameterization network 는 버릴 수 있으며, task-specific parameter $dN$ 만 남는다.
+
 ## B. Performance on SuperGLUE
 
 ### B.2. Covergence of different prompt tuning approaches
 
+여기서 RESIDUAL PROMPT TUNING, prompt tuning 및 MLP reparameterization 을 통한 prompt tuning 의 수렴성을 연구한다. 
+
+Fig. 7 에서 몇 가지 SuperGLUE 작업에서 훈련 중의 정확도와 손실의 진화를 보여줬다. 
+
+저자는 RESIDUAL PROMPT TUNING 이 Prompt Tuning 보다 수렴을 크게 가속화한다는 것을 관찰했다. 
+
+특히, reparameterization network 내의 residual connection 이 성능 향상에 핵심 역할을 한다.
+
+- skip connection 없이 MLP-based reparameterization 은 사실 표준 프롬프트 튜닝보다 수렴 속도가 느림 (Fig. 7). 
+  - 이는 skip connection 이 prompt embedding 을 최적화하기 쉽게 만들어서 설명될 것으로 추측
+- 구체적으로, skip connection 을 통해 학습할 필요 없는 항등 함수를 우회하고 원래 임베딩 위에 projections 를 학습하는 대신, 처음부터 그것들을 학습하는 대신 "위에" projections 를 학습하도록 허용(ResNet 에서 비슷한 관찰). 
+- 따라서 residual prompt reparameterization 은 원래 prompt embedding 을 embedding projections 와 유연하게 결합하여 빠른 수렴과 개선된 성능을 달성
