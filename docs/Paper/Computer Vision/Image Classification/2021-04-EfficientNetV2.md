@@ -1,6 +1,6 @@
 ---
 slug: EfficientNetV2
-title: Paper Summarize EfficientNetV2
+title: "EfficientNetV2: Smaller Models and Faster Training"
 tags: [EfficientNet, EfficientNetV2, Image Classification, Computer Vision, Paper]
 ---
 
