@@ -224,7 +224,7 @@ $$
 
 $$
 \begin{equation}
-    I_{q_i} = \mathbb{E}_{x \sim D_x} \ |\frac{\partial \mathcal{L}(x)}{\partial \gamma_i}|
+    I_{q_i} = \mathbb{E}_{x \sim D_x} \ |\frac{\partial \mathcal{L}(x)}{\partial \zeta_i}|
 \end{equation}
 $$
 
