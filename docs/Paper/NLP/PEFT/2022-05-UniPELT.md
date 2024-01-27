@@ -214,7 +214,7 @@ UniPELT 는 다양한 시나리오에서 효과적으로 작동하도록 구현�
 
 linguistic acceptability (CoLA), sentiment analysis (SST-2), similarity and paraphrase tasks (MRPCNLU, QNLI, RTE) 를 포함하는 NLU task 인 GLUE 에서 실험 수행
 
-Adapter 및 BERT 실험에 따라 WNLI dataset 도 포함
+Adapter 및 BERT 실험에 따라 WNLI dataset 는 제외
 
 #### Data Setup
 
