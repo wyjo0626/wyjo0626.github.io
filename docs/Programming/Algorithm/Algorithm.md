@@ -1,3 +1,7 @@
+import Tabs from '@theme/Tabs';
+
+import TabItem from '@theme/TabItem';
+
 # What is the Algorithm?
 
 문제 해결을 위한 절차나 방법
@@ -58,7 +62,7 @@ input 값이 많다면 sys.stdin.readline() 을 사용하자.
   </TabItem>
   <TabItem value="orange" label="Orange">This is an orange 🍊</TabItem>
   <TabItem value="banana" label="Banana">This is a banana 🍌</TabItem>
-</Tabs>>
+</Tabs>
 
 
 
