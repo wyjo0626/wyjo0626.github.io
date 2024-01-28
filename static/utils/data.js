@@ -123,4 +123,14 @@ const projects = [
     }
 ];
 
-export { publications, projects };
+const backjoons = [
+    {
+        id: "2750",
+        title: "수 정렬하기",
+        date: "2024-01-28",
+        tags: ["정렬"],
+        tier: 4,
+    },
+]
+
+export { publications, projects, backjoons };

@@ -1,0 +1,44 @@
+.tier_img {
+    line-height: inherit;
+    height: 1.2em;
+    vertical-align: middle;
+    font-size: 17.5px;
+}
+
+.tier_span {
+    font-size: 18px;
+    margin: 0 0 8px;
+    line-height: 24px;
+}
+
+.tier_blonze {
+    color: #ad5600;
+}
+
+.tier_silver {
+    color: #435f7a;
+}
+
+.tier_gold {
+    color: #ec9a00;
+}
+
+.tier_platinum {
+    color: #27e2a4;
+}
+
+.tier_diamond {
+    color: #00b4fc;
+}
+
+.tier_ruby {
+    color: #ff0062;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.text_left {
+    text-align: left;
+}
