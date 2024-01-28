@@ -1,6 +1,6 @@
 # BackJoon
 
-<table>
+<table class='backjoon_table'>
     <thead>
         <tr>
             <th>Problem</th>
@@ -10,9 +10,9 @@
     </thead>
     <tbody>
         <tr>
-            <td><a href="https://www.acmicpc.net/problem/2750">2750: 수 정렬하기</a></td>
-            <td>John</td>
-            <td>John</td>
+            <td><a href='https://www.acmicpc.net/problem/2750'>2750: 수 정렬하기</a></td>
+            <td><image src='https://d2gd6pc034wcta.cloudfront.net/tier/4.svg' height='14' /><span>브론</spa></td>
+            <td>정렬</td>
         </tr>
     </tbody>
 </table>

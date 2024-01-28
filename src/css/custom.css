@@ -28,3 +28,15 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.backjoon_table > tbody > tr > td:nth-child(2),
+.backjoon_table > tbody > tr > td:nth-child(3) {
+  text-align: center
+}
+
+.backjoon_table > img {
+  line-height: inherit;
+  width: 0.936em;
+  height: 1.2em;
+  vertical-align: middle;
+}
