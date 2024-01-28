@@ -40,3 +40,14 @@
   height: 1.2em;
   vertical-align: middle;
 }
+
+.backjoon_table > span {
+  font-size: 18px;
+  margin: 0 0 8px;
+  line-height: 24px;
+}
+
+.tier-name-1:after {
+  color: #ad5600;
+  content: "브론즈 II";
+}
