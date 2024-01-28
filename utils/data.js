@@ -128,9 +128,30 @@ const backjoons = [
         id: "2750",
         title: "수 정렬하기",
         date: "2024-01-28",
-        tags: ["정렬"],
+        tags: ["정렬", "구현"],
         tier: 4,
     },
+    {
+        id: "11720",
+        title: "숫자의 합",
+        date: "2024-01-28",
+        tags: ["정렬", "구현", "문자"],
+        tier: 2,
+    },
+    {
+        id: "1546",
+        title: "평균",
+        date: "2024-01-28",
+        tags: ["수학", "사칙연산"],
+        tier: 5,
+    },
+    {
+        id: "11659",
+        title: "구갑 합 구하기 4",
+        date: "2024-01-28",
+        tags: ["누적 합"],
+        tier: 8,
+    }
 ]
 
 export { publications, projects, backjoons };
