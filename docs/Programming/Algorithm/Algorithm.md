@@ -38,8 +38,10 @@
 
 ## Array & List
 
-:::tip[input() vs sys.stdin.readline()]
+:::tip
 
+<Tabs>
+  <TabItem value="input" label="input()">
 input() 내장 함수는 parameter 로 prompt message 를 받을 수 있다. 
 
 - 따라서 입력받기 전 prompt message 를 출력해야 한다. 
@@ -53,6 +55,12 @@ input() 내장 함수는 parameter 로 prompt message 를 받을 수 있다.
 input() 내장 함수는 sys.stdin.readline() 과 비교해서 prompt message 를 출력하고, 개행 문자를 삭제한 값을 리턴하기 때문에 느리다.
 
 input 값이 많다면 sys.stdin.readline() 을 사용하자.
+  </TabItem>
+  <TabItem value="orange" label="Orange">This is an orange 🍊</TabItem>
+  <TabItem value="banana" label="Banana">This is a banana 🍌</TabItem>
+</Tabs>>
+
+
 
 :::
 
