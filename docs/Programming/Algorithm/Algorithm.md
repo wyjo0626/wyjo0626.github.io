@@ -46,6 +46,7 @@ import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="input" label="input()">
+
 input() 내장 함수는 parameter 로 prompt message 를 받을 수 있다. 
 
 - 따라서 입력받기 전 prompt message 를 출력해야 한다. 
