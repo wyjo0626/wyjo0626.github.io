@@ -241,8 +241,6 @@ LTH 에선 sparse subnetworks (unoruned prompts) 가 original network (all promp
   - 다른 soft prompt 는 해당 mask values 를 0 으로 설정하여 pruning 된다.
 - 마지막으로 prompt tuning 에서 사용된 original learning 전략을 사용하여 soft prompt 를 다시 훈련
 
-구체적으로 선택된 최적의 소프트 프롬프트의 매개 변수를 프롬프트 튜닝 단계 후의 값으로 재설정합니다. 다른 소프트 프롬프트는 해당 마스크 변수를 0으로 설정하여 가지 치기됩니다. 마지막으로 우리는 프롬프트 튜닝에서 사용된 원래 학습 전략을 사용하여 소프트 프롬프트를 다시 훈련합니다.
-
 # 5. Experiments
 
 ## 5.1 Datasets
