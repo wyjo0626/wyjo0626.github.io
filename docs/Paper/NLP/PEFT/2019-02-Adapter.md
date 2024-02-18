@@ -4,6 +4,8 @@ title: "Parameter-Efficient Transfer Learning for NLP"
 tags: [PEFT, Adapter]
 ---
 
+논문 이미지 및 출처 : <https://arxiv.org/pdf/1902.00751.pdf>
+
 # Abstract
 
 pre-trained model fine-tuning 은 NLP 에서 효과적인 transfer mechanism 이다.
