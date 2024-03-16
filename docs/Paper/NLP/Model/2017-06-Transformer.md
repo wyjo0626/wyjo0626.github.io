@@ -1,7 +1,7 @@
 ---
 slug: Transformer
 title: "Attention Is All You Need"
-tags: [attention machanism, transformer, encoder-decoder]
+tags: [attention machanism, transformer, encoder-decoder, sequence-to-sequence]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/1706.03762.pdf>
