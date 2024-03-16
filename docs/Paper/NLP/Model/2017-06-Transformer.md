@@ -56,7 +56,7 @@ End-to-End memory networks 는 sequence-aligned recurrence 대신 recurrent atte
 - 각 단계에서 model 은 auto-regressive 하며, 다음 생성 때 이전에 생성된 symbols 를 추가 입력으로 사용
 - Transformer 는 위 아키텍처를 따르며, encoder 및 decoder 에 stacked self-attention 및 point-wise, fully connected layer 를 사용
 
-![Figure 1](image.png)
+![figure 1](image.png)
 
 # 3.1 Encoder and Decoder Stacks
 
