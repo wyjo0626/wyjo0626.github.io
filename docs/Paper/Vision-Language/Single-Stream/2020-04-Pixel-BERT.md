@@ -34,7 +34,7 @@ tags: [Vision-Language, Pixel-BERT, Single-Stream]
   - visual information 의 일부 중요 요소, object shapes, spatial relations 등이 손실
   - task-specific model 의 feature representation 능력은 scene 및 sentiment 같은 semantics 로 제한됨
 
-![Figure 1](image-34.png)
+![Figure 1](image-43.png)
 
 몇 가지 예시로 Fig. 1 을 보여줌
 
@@ -106,7 +106,7 @@ visual 및 language embedding learning 을 위한 visual semantic representation
 
 # 3. Approach
 
-![Figure 2](image-35.png)
+![Figure 2](image-44.png)
 
 ## 3.1 Revisit Transformer
 
@@ -310,7 +310,7 @@ feature learning 의 robustness 향상과 overfitting 방지를 위해, dropout 
 
 #### Datasets
 
-![Table 1](image-36.png)
+![Table 1](image-45.png)
 
 two large-scale image-sentence datasets: MS-COCO, Visual Genome 에 Pixel-BERT 를 pre-training
 
@@ -352,7 +352,7 @@ VQA 에선 Pixel-BERT 가 image 와 question 을 input 으로 받아 [CLS] token
 - batch size 256 및 16 NVIDIA Tesla V100 GPU 18 epochs 동안 fine-tuning
 - initial learning rate 는 pre-training 과 동일하며, $12^{th}$ 및 $16^{th}$ epochs 에서 learning rate 10 감소
 
-![Table 2](image-37.png)
+![Table 2](image-46.png)
 
 VQA task 실험 결과는 SOTA 이며 Tab. 2 에 report 
 
@@ -371,7 +371,7 @@ optimizer, epochs number 및 learning rate setting 모두 위에서 설명한 VQ
 
 저자는 dev 및 test-P split 에서 평가하며, pre-training task 및 다른 downstream task 오 달리 한 번에 two image 를 받는다.
 
-![Table 3](image-38.png)
+![Table 3](image-47.png)
 
 - Tab. 3 결과에서 Pixel-BERT 는 dev split 에서 76.5 accuracy 얻으며, test-P split 에서 77.2 accuracy 얻음.
 - 저자가 two image-language pairs 를 조합하는 방식은 LXMERT 와 UNITER 의 "Pair" setting 과 동일하며, Tab. 3 비교에서 Pixel-BERT 가 이들보다 우수함을 알 수 있음
@@ -394,9 +394,9 @@ retrieval task 는 다른 연구들과 유사하게 ranking 문제로 고려
 
 text-to-image retrieval (IR) 및 imageto-text retrieval (TR) sub-tasks 에서 recal@1, 5, 10 report
 
-![Table 4](image-39.png)
+![Table 4](image-48.png)
 
-![Table 5](image-40.png)
+![Table 5](image-49.png)
 
 - Tab. 4 는 Flickr30K에서 1K testing 결과, Tab. 5 는 MS-COCO 에서 5-fold 1K testing 결과 및 5K testing 결과를 보여줌
 - Pixel-BERT 를 12-layers Transformer 를 language module 로 사용한 Unicoder-VL 및 UNITER 와 비교
@@ -406,7 +406,7 @@ text-to-image retrieval (IR) 및 imageto-text retrieval (TR) sub-tasks 에서 re
 
 ## 4.3 Ablation Study
 
-![Table 6](image-41.png)
+![Table 6](image-50.png)
 
 Pixel-BERT 의 각 component 의 효과를 평가하기 위해 ablation 실험을 수행
 
@@ -429,7 +429,7 @@ ablation 결과는 Tab. 6 에 먼저 각 pre-training tasks 평가
 
 Pixel-BERT 가 language 와 pixel 간의 cross-modality attention 을 통해 visual representation 을 잘 학습할 수 있는지 여부를 더 자세히 확인하기 위해 MS-COCO val set 예제에서 attention maps 의 intermadiate results 를 시각화
 
-![Figure 3](image-42.png)
+![Figure 3](image-51.png)
 
 - Case (A) : "dog", "grass", "frisbee" token 의 반응 영역이 실제 올바른 영역에 분산
 - Case (B) : "cutting" 은 동사이지만, 동작이 칼을 사용하여 수행되는 관련 영역에 attending
