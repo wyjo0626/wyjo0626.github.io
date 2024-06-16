@@ -336,7 +336,7 @@ detected RoIs 가 전체 image 의 모든 정보를 포함하지 않을 수 있�
 - 저자는 input image 에서 global visual feature 를 추출하기 위해 세 가지 다른 CNN 모델 (DenseNet, Resnet, GoogleNet)을 사용
 - 그러나 모든 metric 이 개선되진 않음
 
-#### Pre-train loss\
+#### Pre-train loss
 
 UNITER 에서 영감 받은 MRFR loss 를 pre-training 에 추가하여 zero-shot 결과에서 엄청난 개선 달성
 
