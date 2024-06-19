@@ -186,8 +186,7 @@ visual prompt tuning 연구는 일반적으로 두 가지 주요 범주로 나�
      - VPT-Shallow (Fig. 3(c)) : additional $l$ learnable prompts $P = [P_1], [P_2], \dots [P_l] \in \mathbb{R}^{l \times d}$ 를 input patch embeddings $x_0 \in \mathbb{R}^{N \times d}$ 에 통합
        - 이 prompts 는 patch embeddings 과 concat 되어 final input 을 형성
        - 이 과정은 다음과 같음
-       - 
-       $$\begin{equation}x_0 = concat(P, x_0) = [P, x_0] \in \mathbb{R}^{(l + N) \times d}\end{equation}$$
+       - $x_0 = concat(P, x_0) = [P, x_0] \in \mathbb{R}^{(l + N) \times d}$
          - $[\cdot, \cdot]$ : token dimension 의 concatenation
      - VPT-Deep : VPT-Shallow 를 발전시켜, 각 Transformer layer 의 input space 에 prompt 를 추가하여, fine-tuning 동안 이 prompt 들만 update 하고 pre-trained parameter 는 freezing
        - 비용은 prompt length 및 token embedding dimension 에 따르며, longer prompt 가 더 나은 성능 보임
@@ -225,8 +224,7 @@ $$
 
 - [PATT](https://arxiv.org/pdf/2210.00788) : 이를 해결하기 위해, random initialization 없이 original attention module 에 parallel attention mechanism 을 제안하고, two linear layers (with parameters $W_{down} \in \mathbb{R}^{d \times k}$ 및 $W_{up} \in \mathbb{R}^{k \times l}$) 및 Tanh layers 를 사용하여 prefix matrices 를 transform (Fig. 3e)
   - 특히, $l$-th Transformer layer 의 경우, 이전 layer 의 output $x_{l-1}$ 가 주어지면, 다음 식을 통해 prefix matrices 의 pair 를 얻음
-    - 
-    $$\begin{equation}P_k, P_v = Tanh(x_{l-1}W_{down})W_{up}.\end{equation}$$
+    - $P_k, P_v = Tanh(x_{l-1}W_{down})W_{up}.$
 - [eTT](https://arxiv.org/pdf/2301.02419) : PATT 를 따른 eTT 는 attentive prefix tuning (i.e., new key-value pairs 생성) 으로 few-shot learning 
 - [LAM](https://openaccess.thecvf.com/content/ICCV2023/papers/Gao_A_Unified_Continual_Learning_Framework_with_General_Parameter-Efficient_Tuning_ICCV_2023_paper.pdf) : continual learning framework 의 일부로 prefix tuning 포함
 - [VQT](https://openaccess.thecvf.com/content/CVPR2023/papers/Tu_Visual_Query_Tuning_Towards_Effective_Usage_of_Intermediate_Representations_for_CVPR_2023_paper.pdf) : original Prefix-tuning 과 달리, value $V$ 및 key $K$ 가 아닌 query $Q$ 에만 prefix vectors 덧붙임
@@ -266,8 +264,7 @@ Specification tuning 은 PVM 의 bias 및 LayerNorm 같은 downstream task 에 �
 - [Linear Probe](https://openaccess.thecvf.com/content_CVPR_2019/papers/Kornblith_Do_Better_ImageNet_Models_Transfer_Better_CVPR_2019_paper.pdf) : PVM top 에 linear layer 를 도입하여 classifier 로 사용
   - 이 방법에선 PVM 의 all parameters 는 freezing 되어, PVM 의 pre-training capabilities 탐색 가능. 이 기술은 다양한 PEFT 방법의 표준 기준이 됨
 - [BitFit](https://arxiv.org/pdf/2106.10199) : 모델 내의 bias terms 만 optimizing 하는 것이 효과적임을 보여주어, 다음과 같이 표현됨.
-  - 
-  $$\begin{equation}x_l = x_{l-1}W_l + b_l\end{equation}$$
+  - $x_l = x_{l-1}W_l + b_l$
   - weight parameters $W_l$ 은 freezing
   - bias $b_l$ 만 tuning process 중 optimizing
   - 이 방법은 model 성능의 95% 이상 성능을 유지
@@ -276,8 +273,7 @@ Specification tuning 은 PVM 의 bias 및 LayerNorm 같은 downstream task 에 �
 - [DiffFit](https://openaccess.thecvf.com/content/ICCV2023/papers/Xie_DiffFit_Unlocking_Transferability_of_Large_Diffusion_Models_via_Simple_Parameter-efficient_ICCV_2023_paper.pdf) : diffusion model 의 specific layers 에서 bias term 및 newly add scaling factors 만을 fine-tuning 하며, training speed ups 및 reduced model storage costs 를 불러옴
 - [AdapterBias](https://arxiv.org/pdf/2205.00305) : PVMs 의 bias 는 변경하지 않는 독특한 방식
   - 대신, MLP layer 의 bias term 을 목표로 하여 weight $a$ 및 tunable vector $v$ 를 갖는 linear layer 를 사용. 이는 다음과 같이 표현
-  - 
-  $$\begin{equation}x_l = x_{l-1}W_l + b_l + a \otimes v\end{equation}$$
+  - $x_l = x_{l-1}W_l + b_l + a \otimes v$
 - [LN-Tune](https://ojs.aaai.org/index.php/AAAI/article/view/28978) : bias term 만 tuning 하는 대신, PVMs 의 LayerNorm parameters 만 fine-tuning 하는 strong PEFT baseline
 
 #### Parameter Tuning
@@ -286,15 +282,13 @@ Reparameter tuning 은 training stage 에서 new learnable parameter 를 도입�
 
 - [LoRA](https://arxiv.org/pdf/2106.09685) : trainable low-rank matrices 를 Transformer layer 에 주입하여 weight update 를 근사함
   - pre-trained weight matrix $W_l$ 에 대해, LoRA 는 low-rank decomposition 을 통해 weight update 를 다음과 같이 나타냄
-    - 
-    $$\begin{equation}W'_l = W_l + \Delta W = W_l + BA,\end{equation}$$
+    - $W'_l = W_l + \Delta W = W_l + BA,$
       - B, A : trainable parameters
     - 일반적으로, LoRA 는 multi-head attention 에서 query 및 value projection matrices 를 update 한다.
 - [KronA](https://arxiv.org/pdf/2212.10650) : LoRA 와 구고적 유사성을 공유하지만, LoRA 의 low-rank decomposition 을 Kronecker product decomposition 으로 대체하여 $\Delta W = B \otimes A.$ 로 표현
   - 이 수정은 computational efficiency 및 floating-point operation (FLOPs) 수를 줄임
 - [KAdaptation](https://ojs.aaai.org/index.php/AAAI/article/view/25160) : update weight 를 shared slow weights $A_i$ 와 independent fast weights $B_i$ 간의 $n$ Kronecker product 로 분해하고, 추가로 $B_i$ 를 two low-rank matrices $u_i$ 및 $v_i$ 의 product 로 분해:
-  - 
-  $$\begin{equation}W + \Delta W = W + \sum^n_{i+1} A_i \otimes B_i = \sum^n_{i=1} A_i \otimes (u_iv_i^T).\end{equation}$$
+  - $W + \Delta W = W + \sum^n_{i+1} A_i \otimes B_i = \sum^n_{i=1} A_i \otimes (u_iv_i^T).$
   - 따라서, trainable parameters 는 상당히 감소
 - [FacT](https://ojs.aaai.org/index.php/AAAI/article/view/25187) : PVMs 의 weight 를 single 3D tensor 로 tensorizing 하고, 이 increments 를 lightweight factors 로 decomposing 하는 tensorization-decomposition framework 를 제안
   - 이 방법은 weight increments 를 효율적으로 저장하며, PVM 의 parameter 를 다루는 새로운 방법
