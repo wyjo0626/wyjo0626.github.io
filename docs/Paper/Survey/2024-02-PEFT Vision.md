@@ -239,7 +239,7 @@ $$
    - [SAN](https://openaccess.thecvf.com/content/CVPR2023/papers/Xu_Side_Adapter_Network_for_Open-Vocabulary_Semantic_Segmentation_CVPR_2023_paper.pdf) : two-branch side adapter network 를 가진 side adapter network 제안
      - 한 branch 는 mask proposals 를 예측하는 데 전념하고, 다른 branch 는 mask class recognition 을 위한 self-attention blocks 에 적용되는 attention biases 를 예측하는 데 초점을 둠 
    - [ViT-Adapter](https://arxiv.org/pdf/2205.08534) : spatial prior module 과 two feature interaction operations 를 설계하여, 재설계 없이 ViT architecture 에 image priors 정보를 통합할 수 있게 함
-     - 이 구성은 dense prediction tasks 에 특히 유용하며, missing local information 을 보완하고 fine-grained 및 multi-scale features 를 re-organize 함
+      - 이 구성은 dense prediction tasks 에 특히 유용하며, missing local information 을 보완하고 fine-grained 및 multi-scale features 를 re-organize 함
 2) parameter efficiency 우선시하는 것 외에, side tuning 은 혁신적인 설계로 GPU memory efficiency 를 높일 수 있음이 밝혀짐
    - [LST](https://proceedings.neurips.cc/paper_files/paper/2022/file/54801e196796134a2b0ae5e8adef502f-Paper-Conference.pdf) : backbone model 에서 trainable parameters 를 분리하여 small Transformers network 를 생성하는 것 제안
      - 이 분리는 large backbone network 를 통한 costly backpropagation 필요성을 완전히 제거하여 GPU 메모리 크게 절약 
