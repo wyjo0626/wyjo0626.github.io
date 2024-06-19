@@ -222,7 +222,7 @@ $$
 
 하지만, random initialization 은 random noise 를 가져올 수 있으며 downstream task 의 fine-tuning 에 영향을 미칠 수 있다.
 
-- [PATT]() : 이를 해결하기 위해, random initialization 없이 original attention module 에 parallel attention mechanism 을 제안하고, two linear layers (with parameters $W_{down} \in \mathbb{R}^{d \times k}$ 및 $W_{up} \in \mathbb{R}^{k \times l}$) 및 Tanh layers 를 사용하여 prefix matrices 를 transform (Fig. 3e)
+- [PATT](https://arxiv.org/pdf/2210.00788) : 이를 해결하기 위해, random initialization 없이 original attention module 에 parallel attention mechanism 을 제안하고, two linear layers (with parameters $W_{down} \in \mathbb{R}^{d \times k}$ 및 $W_{up} \in \mathbb{R}^{k \times l}$) 및 Tanh layers 를 사용하여 prefix matrices 를 transform (Fig. 3e)
   - 특히, $l$-th Transformer layer 의 경우, 이전 layer 의 output $x_{l-1}$ 가 주어지면, 다음 식을 통해 prefix matrices 의 pair 를 얻음
     - $$\begin{equation}P_k, P_v = Tanh(x_{l-1}W_{down})W_{up}.\end{equation}$$
 - [eTT](https://arxiv.org/pdf/2301.02419) : PATT 를 따른 eTT 는 attentive prefix tuning (i.e., new key-value pairs 생성) 으로 few-shot learning 
