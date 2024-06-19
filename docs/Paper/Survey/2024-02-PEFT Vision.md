@@ -198,6 +198,7 @@ visual prompt tuning 연구는 일반적으로 두 가지 주요 범주로 나�
    - [Pro-Tuning](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10295530) : 각 downstream input umage 에 대해 task-specific discriminative prompts 생성을 위해 세 가지 lightweight convolutional layers 로 구성된 lightweight prompt blocks 설계
    - [LION](https://ojs.aaai.org/index.php/AAAI/article/view/28345) : PVMs 의 시작과 끝에 위치한 두 개의 implicit layers 를 추가하여 visual input 및 representation 을 풍부하게 하는 visual prompt 작용
    - [ViPT](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhu_Visual_Prompt_Multi-Modal_Tracking_CVPR_2023_paper.pdf) : RGB 및 auxiliary modal input 을 사용하여 처음엔 patch embed 로 처리하여 해당 RGB 및 prompt tokens 생성
+
 2) learnable perturbations 을 original input image 의 around border 에 주입 : pixel level 에서 task-specific prompts 를 최적화하는 연구에 중점을 두고, 이런 prompt 를 input image 와 직접 통합
    - [VP](https://arxiv.org/pdf/2203.17274) : image border 주변에 learnable perturbations 를 수정하여 test 에 PVM 에 접근할 필요가 없음
    - [EVP](https://arxiv.org/pdf/2212.10556) : VP 를 기반으로, image 를 축소하고 data augmentations 를 거친 후, prompt 로 image 를 둘러싸는 전략
@@ -239,7 +240,8 @@ $$
    - [SAN](https://openaccess.thecvf.com/content/CVPR2023/papers/Xu_Side_Adapter_Network_for_Open-Vocabulary_Semantic_Segmentation_CVPR_2023_paper.pdf) : two-branch side adapter network 를 가진 side adapter network 제안
      - 한 branch 는 mask proposals 를 예측하는 데 전념하고, 다른 branch 는 mask class recognition 을 위한 self-attention blocks 에 적용되는 attention biases 를 예측하는 데 초점을 둠 
    - [ViT-Adapter](https://arxiv.org/pdf/2205.08534) : spatial prior module 과 two feature interaction operations 를 설계하여, 재설계 없이 ViT architecture 에 image priors 정보를 통합할 수 있게 함
-      - 이 구성은 dense prediction tasks 에 특히 유용하며, missing local information 을 보완하고 fine-grained 및 multi-scale features 를 re-organize 함
+     - 이 구성은 dense prediction tasks 에 특히 유용하며, missing local information 을 보완하고 fine-grained 및 multi-scale features 를 re-organize 함
+
 2) parameter efficiency 우선시하는 것 외에, side tuning 은 혁신적인 설계로 GPU memory efficiency 를 높일 수 있음이 밝혀짐
    - [LST](https://proceedings.neurips.cc/paper_files/paper/2022/file/54801e196796134a2b0ae5e8adef502f-Paper-Conference.pdf) : backbone model 에서 trainable parameters 를 분리하여 small Transformers network 를 생성하는 것 제안
      - 이 분리는 large backbone network 를 통한 costly backpropagation 필요성을 완전히 제거하여 GPU 메모리 크게 절약 
@@ -322,8 +324,11 @@ Unified-based tuning 은 다양한 fine-tuning 방법을 single, harmonized arch
 PEFT 특성 요악을 Tab. 1 에 나타냄. 이 방법들은 4 가지 측면으로 비교
 
 1) No-Additional Modules (NAM): Specification tuning 은 new modules 를 도입하지 않는 유일한 방법. 다른 방법들은 정도의 차이는 있지만 additional modules 나 parameters 를 도입 
+
 2) Structure Preserving (SP): Adapter Tuning 은 PVMs 의 구조를 변경하는 반면, Prompt Tuning, Prefix Tuning, Side Tuning, Reparameter Tuning 은 original PVM 의 구조를 new modules 를 도입. Specification tuning 은 PVMs 의 일부 parameters 를 직접 최적화하므로 모델 구조를 변경하지 않는다. 
+
 3) Inference Efficient (IE): additional modules 는 일반적으로 inference latency 를 증가시키지만, reparameterization tuning 은 reparameterizing 기법 덕분에 예외 
+
 4) Memory Efficient (ME): side tuning 은 고유하게 메모리 효율을 달성하며, 이는 PVMs 를 포함하지 않는 gradient backpropagation 덕분이다. 
 
 전반적으로 각 PEFT 방법은 고유한 장점과 한계를 가지고 있으며, 완벽한 PEFT 방법은 존재하지 않는다.
