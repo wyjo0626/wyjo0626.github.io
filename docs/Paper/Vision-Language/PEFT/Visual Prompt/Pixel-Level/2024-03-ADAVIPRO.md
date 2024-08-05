@@ -1,7 +1,7 @@
 ---
 slug: AdaViPro
 title: "AdaViPro: Region-Based Adaptive Visual Prompt For Large-Scale Models Adapting"
-tags: [AdaViPro, Visual Prompt, PEFT, Pixel-Level, high-frequency]
+tags: [AdaViPro, Visual Prompt, PEFT, Pixel-Level, Adaptive Prompt]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2403.13282>
