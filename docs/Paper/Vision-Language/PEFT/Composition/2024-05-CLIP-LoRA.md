@@ -49,6 +49,8 @@ computational efficiency 향상 것뿐만 아니라, large-scale fine-tuning set
 
 _그러나 very promising/popular PEFT 문헌은 주로 prompt-tuning 이나 adapters 에 초점을 맞춘 few-shot vision-language 분야에서 거의 반향을 일으키지 못했다._
 
+![Table 1](image-4.png)
+
 - original CLIP 논문은 더 나은 text descriptions 가 zero-shot prediction 에 큰 영향을 미칠 수 있음을 입증했다.
 -   이 관찰은 prompt tuning 의 출현에 strong 동기가 되었으며, 이는 CoOp 의 선구적 연구 이후 vision-language 커뮤니티 내에서 널리 채택된 전략이다.
 -   CoOp 은 few-shot VLMs 설정에서 prompt tuning 을 대중화했다.
