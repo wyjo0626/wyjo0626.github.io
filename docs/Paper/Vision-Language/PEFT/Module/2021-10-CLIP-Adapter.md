@@ -156,7 +156,7 @@ $$
 \end{equation}
 $$
 
-- $tau$ : Softmax temperature
+- $\tau$ : Softmax temperature
 - $W_i$ : class $i$ 에 대한 prototype weight vectors
 - $p_i$ : category $i$ 에 대한 probability 
 
