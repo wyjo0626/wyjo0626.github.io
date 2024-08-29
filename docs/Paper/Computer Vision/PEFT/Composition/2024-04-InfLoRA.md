@@ -169,7 +169,10 @@ $$
 - 그 후, composed matrix $W_t = W + \sum_{j=1}^{t} A_j B_j$ 의 변화를 다음과 같이 계산할 수 있다:
 $$
 \begin{equation}
-    \Delta_W W_t = [W + \Delta W + \sum_{j=1}^{t} A_j B_j ] - (W + \sum_{j=1}^{t} A_j B_j ) = \Delta W = -\alpha \frac{\partial \mathcal{L}}{\partial W_t} = -\alpha \frac{\partial \mathcal{L}}{\partial e} h^T
+    \begin{aligned}
+        \Delta_W W_t &= [W + \Delta W + \sum_{j=1}^{t} A_j B_j ] - (W + \sum_{j=1}^{t} A_j B_j ) \\
+        &= \Delta W = -\alpha \frac{\partial \mathcal{L}}{\partial W_t} = -\alpha \frac{\partial \mathcal{L}}{\partial e} h^T
+    \end{aligned}
 \end{equation}
 $$
 
@@ -187,7 +190,11 @@ $$
 
 $$
 \begin{equation}
-    \Delta_{A_t} W_t = [W_{t-1} + (A_t + \Delta A_t)B_t] - (W_{t-1} + A_t B_t) = \Delta A_t B_t = -\alpha \frac{\partial \mathcal{L}}{\partial A_t} B_t = -\alpha \frac{\partial \mathcal{L}}{\partial e} h^T B_t^T B_t = \Delta_W W_t B_t^T B_t
+    \begin{aligned}
+        \Delta_{A_t} W_t &= [W_{t-1} + (A_t + \Delta A_t)B_t] - (W_{t-1} + A_t B_t) \\
+        &= \Delta A_t B_t = -\alpha \frac{\partial \mathcal{L}}{\partial A_t} B_t = -\alpha \frac{\partial \mathcal{L}}{\partial e} h^T B_t^T B_t \\
+        &= \Delta_W W_t B_t^T B_t
+    \end{aligned}
 \end{equation}
 $$
 
