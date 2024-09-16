@@ -80,7 +80,7 @@ LoRA 는 여전히 제한 사항 존재
   - 동일한 trainable parameter 수로 specific modules 또는 layers 를 fine-tuning 할 때 LoRA 의 성능 비교
   - Fig. 1a 에선 feed-forward networks (FFN) 를 fine-tuning 하면 self-attention modules 보다 더 나은 성능 달성
   - Fig. 1b 에선 top layers 의 weight matrices 가 bottom layers 보다 더 중요하단 것 보여줌
-- 주요 weight matrices 에 더 맘ㄶ은 trainable parameter 를 추가하면 model performance 향상 가능. 반면, less important weight matrices 를 추가하면 향상되지 않거나 저해 가능
+- 주요 weight matrices 에 더 은 trainable parameter 를 추가하면 model performance 향상 가능. 반면, less important weight matrices 를 추가하면 향상되지 않거나 저해 가능
 - parameter budget, i.e. total trainable parameters 가 주어진 경우, 항상 important modules 에 더 많은 parameter 를 할당하는 것이 좋다.
 - budget 을 모든 weight matrices/layers 에 고르게 분배하는 LoRA 및 다른 방법(e.g. adapter/prefix tuning)은 부적절한 성능을 낼 수 있음
 
