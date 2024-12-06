@@ -5,8 +5,8 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const math = require('remark-math');
 const katex = require('rehype-katex')
-const username = 'whdnjsdyd111'
-const repository = 'whdnjsdyd111.github.io'
+const username = 'wyjo0626'
+const repository = 'wyjo0626.github.io'
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -56,7 +56,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io/tree/master/docs',
+            'https://github.com/wyjo0626/wyjo0626.github.io/tree/master/docs',
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },
@@ -65,7 +65,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io/tree/master/docs/blog',
+            'https://github.com/wyjo0626/wyjo0626.github.io/tree/master/docs/blog',
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },
@@ -114,7 +114,7 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io',
+            href: 'https://github.com/wyjo0626/wyjo0626.github.io',
             label: 'GitHub',
             position: 'right',
           },
@@ -158,12 +158,12 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/whdnjsdyd111/whdnjsdyd111.github.io',
+                href: 'https://github.com/wyjo0626/wyjo0626.github.io',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} WonYongLab, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Won-Yong Jo, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
