@@ -4,6 +4,8 @@ title: "Whiteout: Gaussian Adaptive Noise Injection Regularization in Deep Neura
 tags: [Regularisation, GNI, whiteout]
 ---
 
+논문 및 이미지 추처 : <https://arxiv.org/pdf/1612.01490>
+
 # Abstract
 
 **Noise Injection** (NI) 은 Neural Networks (NNs) 에서 over-fitting 을 완화하기 위한 효율적인 기법이다. Dropout 및 Shakeout 에서 구현된 Bernoulli NI 절차는 NN model parameters 에 대한 $l_1$ 및 $l_2$ regularization 와 연결되어 있다.
