@@ -1,7 +1,7 @@
 ---
 slug: Training Noise
 title: "Training with Noise is Equivalent to Tikhonov Regularization"
-tags: [Regularisation, GNI, whiteout]
+tags: [Regularisation, GNI, Training Noise]
 ---
 
 논문 및 이미지 출처 : <https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/bishop-tikhonov-nc-95.pdf>
@@ -206,7 +206,7 @@ $$
 - interpolation problems 에서는 network 가 target data 의 intrinsic additive noise (training 중 input data 에 추가된 noise 와는 다름) 를 평균화하여 데이터의 근본적인 경향을 학습한다는 것을 보여준다. 
 - 또한, target data 가 1-of-N coding scheme 임을 사용하는 classification 문제의 경우, 이 결과는 network output 이 클래스 소속의 Bayesian posterior probabilities 로 해석될 수 있음을 나타내며, 따라서 최적의 결과로 간주될 수 있다.
 - Eq. (15) 는 error function 의 global minimum 을 나타내며, network model 이 편향되지 않을 정도로 기능적으로 충분히 풍부하다고 간주되어야 한다. 
-- 하지만, 이 minimum 에도 error function 은 0이 되지 않으며, 이는 Eq. (14) 의 second term 에 의해 주어진 잔여 오류가 존재하기 때문이다. 
+- 하지만, 이 minimum 에도 error function 은 0 이 되지 않으며, 이는 Eq. (14) 의 second term 에 의해 주어진 잔여 오류가 존재하기 때문이다. 
 - 이 잔여 오류는 conditional averages 주변의 target data 의 평균 분산을 나타낸다.
 
 regularized error function Eq. (10) 에 대해 minimizing function 은 다음과 같은 형태를 가진다:
