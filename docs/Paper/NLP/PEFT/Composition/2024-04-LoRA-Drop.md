@@ -701,4 +701,4 @@ $$
 \end{align*}
 $$
 
-(A.8) 은 $\mathcal{L}_\lambda$ 가 parameters $\theta$ 에 대해 convex 하다는 점에서 Jensen inequality 에 의해 성립한다.
+여기서 (A.8) 은 $\mathcal{L}_\lambda$ 가 parameters $\theta$ 에 대해 convex 하다는 점에서 Jensen inequality 에 의해 성립한다.
