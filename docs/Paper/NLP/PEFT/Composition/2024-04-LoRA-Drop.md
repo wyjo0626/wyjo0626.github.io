@@ -696,8 +696,8 @@ $$
 
 $$
 \begin{align*}
-  \mathbb{E}_{(x, y)} \mathcal{L}_\lambda \left( \mathbb{E}_{\theta \sim \mathcal{D}} \mathcal{M}(x; \theta), y \right) &\leq \mathbb{E}_{(x, y)} \mathbb{E}_{\theta \sim \mathcal{D}} \mathcal{L}_\lambda \left( \mathcal{M}(x; \theta), y \right) \tag{A.8} \\
-  &= \mathbb{E}_{\theta \sim D} \mathbb{E}_{(x, y)} \mathcal{L}_\lambda \left( \mathcal{M}(x; \theta), y \right). \tag{A.9}
+  \mathbb{E}_{(x, y)} \mathcal{L}_\lambda \left( \mathbb{E}_{\theta \sim \mathcal{D}} \mathcal{M}(x; \theta), y \right) &\leq \mathbb{E}_{(x, y)} \mathbb{E}_{\theta \sim \mathcal{D}} \mathcal{L}_\lambda \left( \mathcal{M}(x; \theta), y \right) \\
+  &= \mathbb{E}_{\theta \sim D} \mathbb{E}_{(x, y)} \mathcal{L}_\lambda \left( \mathcal{M}(x; \theta), y \right). \tag{A.8}
 \end{align*}
 $$
 
