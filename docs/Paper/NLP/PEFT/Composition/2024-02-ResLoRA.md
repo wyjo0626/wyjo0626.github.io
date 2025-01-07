@@ -1,7 +1,7 @@
 ---
 slug: ResLoRA
 title: "ResLoRA: Identity Residual Mapping in Low-Rank Adaption"
-tags: [ResLoRA, LoRA, PEFT, Low-Rank,]
+tags: [ResLoRA, LoRA, PEFT, Low-Rank, Residual LoRA]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2402.18039>
