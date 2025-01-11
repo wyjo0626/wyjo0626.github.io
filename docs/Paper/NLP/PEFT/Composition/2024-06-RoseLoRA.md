@@ -212,7 +212,7 @@ $$
 
 #### Proposition 1
 
-$BA$ 의 sparsity 는 $\max\Bigl\{0,1+\sum_{i=1}^r\bigl(s(A_{i*})+s(B_{*i})-s(A_{i*})s(B_{*i})\bigr) - r\Bigr\}$ 와 동일하거나 더 크다.
+$BA$ 의 sparsity 는 $\geq \max\Bigl\{0,1+\sum_{i=1}^r\bigl(s(A_{i*})+s(B_{*i})-s(A_{i*})s(B_{*i})\bigr) - r\Bigr\}$
 
 ## 4.2 Optimization
 
@@ -408,3 +408,88 @@ Tab. 4 는 instruction-following task 에서 RoseLoRA 와 baselines 의 성능�
 제안하는 RoseLoRA framework 는 sensitivity estimation 을 부드럽게 만드는 hyper-parameter $\beta$ 를 도입하는데, 이는 additional tuning 노력이 필요할 수 있다. 
 
 다만, 실험 결과 성능이 $\beta$ 에 크게 민감하지 않아, 본 연구에서는 한 가지 고정 값으로도 좋은 결과를 얻을 수 있었다.
+
+# Appendix
+
+## A. Proof of Proposition 1
+
+#### Lemma 1
+
+For $a \in \mathbb{R}^{1\times d_2}$ 와 $b \in \mathbb{R}^{d_1\times 1}$ 에 대해, 각각의 sparsity 가 $s(a) = s_a$, $s(b) = s_b$ 라고 할 때, $s(ba) = s_a + s_b - s_as_b$ 이 성립한다.
+
+_**Proof.**_  
+
+vector 혹은 matrix 에서 zero values 의 개수를 $z(\cdot)$ 로 정의하자. 
+
+$ba$ 의 $i$-th row 는 $b_ia$ 이다. 만약 $b_i = 0$ 이라면 $b_ia = 0$ 이다. 
+
+만약 $b_i \neq 0$ 이라면, 그 zero 의 개수는 $a$ 의 zero 개수에 좌우된다. 따라서,
+
+$$
+\begin{equation}
+    z(b_ia) =
+    \begin{cases}
+    d_2, & b_i = 0,\\
+    s_ad_2, & b_i \neq 0.
+    \end{cases}
+\end{equation}
+$$
+
+이에 따라,
+
+$$
+\begin{equation}
+    \begin{aligned}
+        z(ba) &= \sum_{i=1}^{d_1} z(b_ia) \\
+        &= d_2s_bd_1 + s_ad_1d_2(1 - s_b) \\
+        &= d_1d_2\bigl(s_a + s_b - s_as_b\bigr).
+    \end{aligned}
+\end{equation}
+$$
+
+결국 $ba$ 의 sparsity 는
+
+$$
+\begin{equation}
+    \begin{aligned}
+        s(ba) &= \frac{d_1d_2\bigl(s_a + s_b - s_as_b\bigr)}{d_1d_2} \\
+        &= s_a + s_b - s_as_b.
+    \end{aligned}
+\end{equation}
+$$
+
+#### Proposition 1.
+
+The sparsity of $BA$ 은 $\ge \max\Bigl\{0,1 +\sum_{i=1}^r\bigl(s(A_{i*}) + s(B_{*i}) - s(A_{i*})s(B_{*i})\bigr)-r\Bigr\}.$
+
+_**Proof.**_
+
+먼저,
+
+$$
+\begin{equation}
+    \begin{aligned}
+        (BA)_{ij} &= \sum_{k=1}^r B_{ik}A_{kj} \\
+        &= \sum_{k=1}^r \bigl(B_{*k}A_{k*}\bigr)_{ij}.
+    \end{aligned}
+\end{equation}
+$$
+
+worst-case 시나리오를 생각하면, $\{B_{*k}A_{k*}\}$ 의 nonzero positions 가 전혀 겹치지 않는다고 할 수 있다. 
+
+이 경우 최소한 $\max\Bigl\{0,d_1 d_2 -\sum_{i=1}^r\bigl(1 - s\bigl(B_{*i}A_{i*}\bigr)\bigr)d_1 d_2\Bigr\}$ 개의 zero values 가 존재하게 된다.
+
+그러므로 Lemma 1 에 따라 $BA$ 의 sparsity $s(BA)$ 는 다음과 같이 정리된다.
+
+$$
+\begin{equation}
+    \begin{aligned}
+    s(BA) & \ge \frac{\max\Bigl\{0, d_1 d_2 - \sum_{i=1}^r \bigl(1 - s\bigl(B_{*i}A_{i*}\bigr)\bigr) d_1 d_2}{d_1 d_2}\Bigr\}
+    \\
+    &=\max\Bigl\{0,1+\sum_{i=1}^rs\bigl(B_{*i}A_{i*}\bigr)-r\Bigr\}\\
+    &=\max\biggl\{0,1+\sum_{i=1}^r\Bigl(s(A_{i*}) + s(B_{*i}) - s(A_{i*})s(B_{*i})\Bigr)-r\biggr\},
+    \end{aligned}
+\end{equation}
+$$
+
+로 정리된다.
