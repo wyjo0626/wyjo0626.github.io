@@ -223,7 +223,7 @@ $$
 
 ![Algorithm 1](image-170.png)
 
-# 4. Theoretical Resul
+# 4. Theoretical Result
 
 이 섹션에서는 제안한 방법의 fine-tuning 부터 inference 에 이르는 이론적 결과를 제시한다. 
 
@@ -231,9 +231,9 @@ $$
 - 그런 다음, sparsity regularization framework 하에서 generalization error bound 를 제안하고, LoRA Dropout fine-tuning 에서 over-fitting 과 under-fitting 간의 trade-off 에 대한 이론적 메커니즘을 밝힌다. 
 - inference stage 에선 test-time LoRA Dropout ensemble 을 통해 better test-time generalization ability 을 보장하는 tighter error bound 를 증명한다.
 
-## 4.1. LoRA Dropout Fine-Tuning Through the Lens of Sparse Regularizat
-loss function
-$\theta^0 \in \mathbb{R}^d$ 로 reparameterization 된 pre-trained model $\mathcal{M}^0$ 이 있다고 가정한다. 
+## 4.1. LoRA Dropout Fine-Tuning Through the Lens of Sparse Regularization
+
+loss function $\theta^0 \in \mathbb{R}^d$ 로 reparameterization 된 pre-trained model $\mathcal{M}^0$ 이 있다고 가정한다. 
 
 - LoRA 같은 방법은 $\mathcal{M}^0$ 을 LoRA Dropout 전략으로 조정하여, LoRA matrices 의 input 과 output sizes 에서 probability $p$ 로 random neuron 을 sampling 하여 zeros 로 masking 한다.
   - upated delta $\Delta \theta$ 는 각 entry 가 $1 - (1 - p)^2 = 2p - p^2$ 의 확률로 zero 가 되는 natural sparsity property 를 가진다.
@@ -321,7 +321,7 @@ $$
 
 #### Lemma 4.3
 
-어떠한 learning algorithm $\mathcal{M}$ 이 parameter $\theta$ 를 가지고 있으며, $0 ≤ |\ell(x)−\ell(x')| \leq C, \forallx, x'$ 를 만족하는 bounded loss function $\ell$ 이 있다고 하자. 
+어떠한 learning algorithm $\mathcal{M}$ 이 parameter $\theta$ 를 가지고 있으며, $0 ≤ |\ell(x)−\ell(x')| \leq C, \forall x, x'$ 를 만족하는 bounded loss function $\ell$ 이 있다고 하자. 
 
 만약 $\mathcal{M}$ 이 PHS $\beta$ 를 가진다면, probability $1 − \delta$ 로 다음이 성립한다:
 
