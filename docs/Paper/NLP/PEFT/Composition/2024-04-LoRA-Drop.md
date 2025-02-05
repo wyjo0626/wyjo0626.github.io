@@ -148,7 +148,7 @@ dropout 이 적용된 이후의 forward pass 는 다음과 같다:
 
 $$
 \begin{equation}
-  \hat{h} = W_0 x + \hat{B} A \hat{x}.
+  \hat{h} = W_0 x + \hat{B} \hat{A} x.
 \end{equation}
 $$
 
