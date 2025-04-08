@@ -1,7 +1,7 @@
 ---
 slug: AlphaTuning
 title: "AlphaTuning: Quantization-Aware Parameter-Efficient Adaptation of Large-Scale Pre-Trained Language Models"
-tags: [PEFT, AlphaTuning, Quantization, Quantized LLMs]
+tags: [PEFT, AlphaTuning, Quantization, Quantized LLMs, 4-bit quantization, 4-bit, binary-coding quantization]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2210.03858>
