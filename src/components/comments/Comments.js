@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react"
 import { useColorMode } from "@docusaurus/theme-common"
 
 function Comment() {
+    const { username, repository } = usePluginData('docusaurus-plugin-utterances');
     const containerRef = useRef(null);
     const utterancesRef = useRef(null);
 
@@ -12,7 +13,7 @@ function Comment() {
         const createUtterancesEl = () => {
             const script = document.createElement("script");
             script.src = "https://utteranc.es/client.js";
-            script.setAttribute("repo", "whdnjsdyd111/whdnjsdyd111.github.io");
+            script.setAttribute("repo", `${username}/${repository}`);
             script.setAttribute("issue-term", "title")
             script.setAttribute("theme", utterancesTheme);
             script.setAttribute("label", "comment")
