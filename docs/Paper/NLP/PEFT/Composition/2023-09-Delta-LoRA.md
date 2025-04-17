@@ -45,8 +45,8 @@ LoRA 와 그 후속연구들은 PEFT(Parameter Efficient Fine-Tuning) 분야에�
 
 본 논문에서는 Fig. 1 처럼, 기존 LoRA 와 동일한 memory consumption 를 유지하면서 pre-trained matrix 와 two low-rank matrix 를 동시에 업데이트하는 새로운 PEFT 접근법인 Delta-LoRA 를 소개한다. 
 
-- 구체적으로는 pre-trained matrix $W$ 는 two consecutive iterations 에서 two low-rank matrix 의 product 의 delta ($△AB = A^{(t+1)}B^{(t+1)} - A^{(t)}B^{(t)}$) 로 업데이트하며, two low-rank matrix 은 AdamW optimizer 에 의해 자동으로 업데이트된다. 
-- 이는 mathematical property $\frac{\partial \mathcal{L}}{\partial W} = \frac{\partial \mathcal{L}}{\partial AB}$ 에 기반을 두고 있으며, $△AB$ 가 $W$ 의 업데이트를 지시하는 대체물로 작용한다 (Sec. 4). 
+- 구체적으로는 pre-trained matrix $W$ 는 two consecutive iterations 에서 two low-rank matrix 의 product 의 delta ($\Delta AB = A^{(t+1)}B^{(t+1)} - A^{(t)}B^{(t)}$) 로 업데이트하며, two low-rank matrix 은 AdamW optimizer 에 의해 자동으로 업데이트된다. 
+- 이는 mathematical property $\frac{\partial \mathcal{L}}{\partial W} = \frac{\partial \mathcal{L}}{\partial AB}$ 에 기반을 두고 있으며, $\Delta AB$ 가 $W$ 의 업데이트를 지시하는 대체물로 작용한다 (Sec. 4). 
 - $W$ 의 gradients 를 저장하지 않으며, optimizer 를 사용해 pre-trained matrix 를 업데이트하지 않기 때문에 제안된 방법은 additional memory overhead 를 발생시키지 않는다. 
 - 이러한 전략적 통합은 two low-rank matrix 만 업데이트할 때 발생하는 sub-optimal representation learning 문제를 효과적으로 완화한다. 
 - 더욱이, pre-trained weight 의 업데이트 방향을 점진적 업데이트 행렬의 방향과 일치시킨다. 
@@ -378,13 +378,13 @@ RoBERTa-base 는 118M parameters 를 가지며, 실험을 수행하고 baseline 
 - Tab. 5 에 나타난 바와 같이, low-rank 업데이트의 delta 를 사용하여 pre-trained matrix 를 업데이트하는 것만으로도 성능 향상이 가능하지만, Delta-LoRA 모듈에서 dropout 을 제거할 경우 최상의 성능을 얻을 수 있다. 
   - 이 관찰 결과는 제안된 방법론의 각 component 가 중요한 역할을 한다는 것을 확인시켜 준다. 
 - 성능 향상이 단순히 update size 증가에서 비롯된 것이 아니라, 제안된 방법의 본질적인 특성에서 비롯된 것인지 구별하기 위해 추가 실험을 설계하였다. 
-- 제안된 알고리즘에 따르면, pre-trained matrix 와 low-rank matrix 의 parameters 를 모두 업데이트하는데, 이는 weight 에 large $△AB$ 업데이트가 extra parameters 도입 없이 성능을 향상시키는 것인지 의심을 일으킬 수 있다. 
+- 제안된 알고리즘에 따르면, pre-trained matrix 와 low-rank matrix 의 parameters 를 모두 업데이트하는데, 이는 weight 에 large $\Delta AB$ 업데이트가 extra parameters 도입 없이 성능을 향상시키는 것인지 의심을 일으킬 수 있다. 
 
 ![Table 6](image-103.png)
 
 - 이 질문에 답하기 위해, Tab. 6 에서 결과를 보여주는 실험을 설계하여 제안된 방법의 효과를 증명하였다. 
-- LoRA 의 learning rate 을 $2e-4$ 에서 $6e-4$ 로 조정하여 $W + AB$ 가 $3 \times △AB$ 로 업데이트될 수 있도록 하였고, 이는 $\lambda$ 를 2 로 설정한 Delta-LoRA 와 동일하다. 
-- $3 \times △AB$ 로 $AB$ 를 업데이트하더라도 성능이 Delta-LoRA 와 비교할 때 여전히 부족하다는 것을 발견하였다. 
+- LoRA 의 learning rate 을 $2e-4$ 에서 $6e-4$ 로 조정하여 $W + AB$ 가 $3 \times \Delta AB$ 로 업데이트될 수 있도록 하였고, 이는 $\lambda$ 를 2 로 설정한 Delta-LoRA 와 동일하다. 
+- $3 \times \Delta AB$ 로 $AB$ 를 업데이트하더라도 성능이 Delta-LoRA 와 비교할 때 여전히 부족하다는 것을 발견하였다. 
 - 이 실험은 optimization process 에 more parameters 를 도입함으로써 모델이 better representation 을 학습할 수 있음을 추가로 증명한다.
 
 #### The cosine similarity between fine-tuned and the pre-trained parameters to measure learning effects.
@@ -421,11 +421,11 @@ Delta-LoRA 는 delta $A^{(t+1)}B^{(t+1)}−A^{(t)}B^{(t)}$ 를 활용하여 pre-
 
 # Appendix
 
-# A.1 The Expansion of $△AB$
+# A.1 The Expansion of $\Delta AB$
 
-실제 training process 에서 optimizer 및 $△AB$ 에 대한 regularization 을 포함한 다양한 training factor 를 고려해야 한다.
+실제 training process 에서 optimizer 및 $\Delta AB$ 에 대한 regularization 을 포함한 다양한 training factor 를 고려해야 한다.
 
-AdamW 및 L$_2$ regularization 을 사용한 경우, $△AB$ 는 다음과 같이 확장된다:
+AdamW 및 L$_2$ regularization 을 사용한 경우, $\Delta AB$ 는 다음과 같이 확장된다:
 
 $$
 \begin{equation}
@@ -443,6 +443,6 @@ $$
 
 - $η$ : learning rate
 - $β$ : weight decay
-- pre-trained weight W 에 대해 $△W = η\hat{g}W + ηβW^{(t)}$
+- pre-trained weight W 에 대해 $\Delta W = η\hat{g}W + ηβW^{(t)}$
 
-따라서 training process 에서 $△AB$ 는 $△W$ 와 같지 않다.
+따라서 training process 에서 $\Delta AB$ 는 $\Delta W$ 와 같지 않다.

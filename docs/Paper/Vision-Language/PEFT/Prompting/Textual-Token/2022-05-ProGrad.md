@@ -60,14 +60,14 @@ prompt 는 pre-trained model 과 downstream tasks(e.g., regression vs. classific
 - 구체적으로, 저자는 _zero-shot prompted CLIP_ 과 few-shot fine-tuned model 의 prediction 간의 Kullback-Leibler (KL) divergence 의 gradient 를 사용하여 general knowledge direction $G_g$ 를 측정하며, 이를 _general direction_ 이라 부른다.
 - 마찬가지로, 저자는 _ground-truth_ 와 few-shot fine-tuned model 간의 cross-entropy 의 gradient 를 사용하여 domain-specific knowledge direction $G_d$ 를 계산하며, 이를 _domain-specific direction_ 이라 부른다. 
 - 저자는 domain-specific direction $G_d$ 를 두 가지로 분해한다: 
-  1. general direction 과 직교하는 vector $G_⊥$, 이는 non-conflicting domain-specific knowledge 를 나타낸다; 
+  1. general direction 과 직교하는 vector $G_\perp$, 이는 non-conflicting domain-specific knowledge 를 나타낸다; 
      - 이 gradient component 는 two orthogonal vectors 를 two non-conflicting base vectors 로 변환할 수 있기 때문에 general direction 을 무시하지 않는다.  
-  2. general direction 과 평행한 vector $G_∥$, 이는 general knowledge 을 나타낸다.
+  2. general direction 과 평행한 vector $G_\parallel$, 이는 general knowledge 을 나타낸다.
      - 이 component 는 general direction 과 동일한 경우와 반대의 경우 두 가지 중 하나일 수 있다: 
        1. general direction 과 같은 경우, 이는 업데이트가 general knowledge 과 일치함을 나타낸다. 
        2. general direction 과 반대인 경우, 이는 충돌하는 업데이트를 나타내며, 이를 방지하기 위해 버려야 한다. 
 - 전체적으로, _**ProGrad**_ 는 각 iteration 에서 general direction 과 acute angle 을 이루는 prompt-aligned direction 만 parameter 를 업데이트한다.
-- CoOp 및 CLIP 과 비교할 때, $G_g$ 와 $G_⊥$ (Fig. 2(d&e))는 모두 모델이 foreground 에 집중하도록 regularization 하는데 도움을 주며, **_ProGrad_** (Fig. 2(f))는 visual response 를 더욱 향상시킨다.
+- CoOp 및 CLIP 과 비교할 때, $G_g$ 와 $G_\perp$ (Fig. 2(d&e))는 모두 모델이 foreground 에 집중하도록 regularization 하는데 도움을 주며, **_ProGrad_** (Fig. 2(f))는 visual response 를 더욱 향상시킨다.
 
 CLIP, CoOp 및 CoCoOp 을 따라, 저자는 **_ProGrad_** 를 few-shot learning, domain generalization, base-to-new generalization, cross-dataset transfer setting 에서 15 image classification benchmark 를 통해 평가하며, 이는 generic object classification, fine-grained image recognition, action classification 을 포함한다. 
 
@@ -228,7 +228,7 @@ $$
 $$
 
 - $\mathcal{F}$ : function class
-- $\mathcal{R}(·)$ 과 $\mathcal{R}ˆ(·)$ : expected risk 및 empirical risk
+- $\mathcal{R}(·)$ 과 $\hat{\mathcal{R}}(·)$ : expected risk 및 empirical risk
 - 저자는 Rademacher Complexity 와 [Generalization bounds for domain adaptation.] 의 Theorem 6.2 를 통해 **_ProGrad_** 의 generalization error 를 제한한다.
 
 #### Theorem 1

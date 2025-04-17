@@ -308,7 +308,7 @@ $D_\text{mid}$ 를 증가시키고 Adapter 의 성능이 좋지 않던 setup (Co
 
 - LoRA 의 경우 STS-B 및 QQP ($K = \{100, 500\}$) 에서 효과적으로 학습하지 못하여, 실행 간 variance 가 높다.
   - 그 외에는 fewer trainable parameter 를 사용해도 Adapter 같은 competitive 성능을 나타난다.
-  - $ㅏ = 1000$ 일 때 8 asks 중 4 tasks 에서 최고 또는 2위 성능 달성
+  - $K = 1000$ 일 때 8 asks 중 4 tasks 에서 최고 또는 2위 성능 달성
 - LoRA 는 저자의 static gating function 으로 볼 수 있는 scaling factor $\alpha$ 존재. 저자는 다양한 $\alpha$ 로 LoRA 를 평가하여 중요성 조사
   - Fig. 3 처럼, LoRA 는 scaling factor 에 민감.
   - 여러 task 와 data setup 에 잘 작동하는 최적값이 보이지 않음.

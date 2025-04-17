@@ -181,7 +181,7 @@ training 중에는 Gumbel-Softmax sampling 을 활용하여 mask generator 의 t
 
 $$
 \begin{equation}
-  m_e(i, j) = ∆f(i, j) = \frac{∂^2 f(i, j)}{∂ i^2} + \frac{∂^2 f(i, j)}{∂ j^2}.
+  m_e(i, j) = \Delta f(i, j) = \frac{∂^2 f(i, j)}{∂ i^2} + \frac{∂^2 f(i, j)}{∂ j^2}.
 \end{equation}
 $$
 
@@ -244,7 +244,7 @@ $$
 \end{equation}
 $$
 
-- $j ∈ {0, 1}$ 및 $τ$ : probability distribution 의 shape 를 제어하고 exploration 및 exploitation 간의 밸런스를 조정하는 temperature parameter
+- $j \in {0, 1}$ 및 $τ$ : probability distribution 의 shape 를 제어하고 exploration 및 exploitation 간의 밸런스를 조정하는 temperature parameter
 - 이는 training 이 진행됨에 따라 점점 낮아지며, 각 epoch 에서 decay factor $\gamma$ 에 의해 곱해진다.
 - Gumbel-Softmax sampling 은 training 중에 gradient 를 근사화하는 데만 사용된다.
 - inference 중에는 $argmax$ operator 를 직접 사용하여 mask map $m_p$ 의 discrete decision marks 를 생성한다.
