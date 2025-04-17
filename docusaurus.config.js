@@ -10,9 +10,9 @@ const repository = 'wyjo0626.github.io'
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'WYJLab',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/WYJLab.ico',
 
   // Set the production url of your site here
   url: `https://${username}.github.io`,
@@ -101,7 +101,7 @@ const config = {
         title: 'WYJLab',
         logo: {
           alt: 'WYJLab Logo',
-          src: 'img/logo.svg',
+          src: 'img/WYJLab.svg',
         },
         items: [
           {to: '/publications', label: 'Publications', position: 'left'},
