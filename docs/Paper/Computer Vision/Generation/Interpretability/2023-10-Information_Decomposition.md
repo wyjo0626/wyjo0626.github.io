@@ -1,8 +1,10 @@
 ---
-slug: Information Decomposition
+slug: Info-Decomp
 title: "Interpretable Diffusion via Information Decomposition"
 tags: [Text-to-Image, Diffusion, Interpretable, Information Decomposition, Mutual Information, point-wise estimate]
 ---
+
+논문 및 이미지 출처 : <https://arxiv.org/pdf/2310.07972>
 
 # Abstract
 
