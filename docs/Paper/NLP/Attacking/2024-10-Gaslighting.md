@@ -181,7 +181,7 @@ $$
 - $\mathbf{h}_{<k}^{+} = [\mathbf{u}_1, \mathbf{w}_1^{+}, \ldots, \mathbf{w}_{k-1}^{+}, \mathbf{u}_k]$ 는 $k$th safe assistant response 전의 모든 user utterance $\mathbf{u}$ 와 safe assistant utterance $\mathbf{w}^{+}$ 를 나타낸다. 
 - $n$ 은 $k$th response 의 token 수다.
 
-#### S2
+#### S2: SFT on the mixture of gaslighting and safe datasets
 
 Safe assistant response 에서 LLM 을 훈련시키면 safety guardrail 을 강화할 수 있지만, gaslighting assistant response 를 포함하면 attack 에 대한 resistance 를 더 높일 수 있다. 
 
@@ -189,7 +189,7 @@ Safe response 와 gaslighting response 를 mix 하는 새로운 safety alignment
 
 - 여기서 $\mathbf{w}_{k-1}^{-}$ 는 gaslighting conversation 에서 $(k-1)$th gaslighting assistant response 이다.
 
-#### S3
+#### S3: SFT and DPO on the mixture of gaslighting and safe datasets
 
 Preference data—safe response 와 gaslighting response 로 구성된—를 활용해 LLM 의 safety guardrail 을 더 강화한다. DPO algorithm 을 사용해 safe response 를 favor 하고 gaslighting 을 discourage 하는 preference 와 LLM 을 직접 align 한다. DPO loss 로 LLM model 을 optimize 한다:
 
