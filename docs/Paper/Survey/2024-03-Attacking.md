@@ -1,7 +1,7 @@
 ---
 slug: LLM-Attacks
 title: "Breaking Down the Defenses: A Comparative Survey of Attacks on Large Language Models"
-tags: [LLM, Attack, ]
+tags: [LLM, Attack, Survey]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2403.04786>
