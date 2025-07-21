@@ -19,15 +19,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: npm
-
       - name: Install dependencies
         run: npm ci
       - name: Clear
         run: npm run clear
       - name: Build website
-        run: npm --max_old_space_size=4096 run build
+        run: npm --max_old_space_size=8192 run build
 
       # 깃허브 페이지에 배포하기 위한 일반적인 액션
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
