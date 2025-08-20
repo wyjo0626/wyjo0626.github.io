@@ -1,7 +1,7 @@
 ---
 slug: RandLoRA
 title: "RandLoRA: Full-Rank Parameter-Efficient Fine-Tuning of Large Models"
-tags: [RandLoRA, LoRA, PEFT, Low-Rank, Shifted Sparse Attention, S2-Attn, SF-Attn]
+tags: [RandLoRA, LoRA, PEFT, Low-Rank, Full-Rank]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2502.00987>
