@@ -1,7 +1,7 @@
 ---
 slug: NEFTune
 title: "NEFTune: Noisy Embeddings Improve Instruction FineTuning"
-tags: []
+tags: [NEFTune, noisy embedding, LLaMA]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2310.05914>
