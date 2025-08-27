@@ -1,6 +1,6 @@
 ---
 slug: SymNoise
-title: "`SymNoise`: Advancing Language Model Fine-tuning with Symmetric Noise"
+title: "SymNoise: Advancing Language Model Fine-tuning with Symmetric Noise"
 tags: [SymNoise, noisy embedding, LLaMA, Symmetric noisy embedding, Bernoulli noise]
 ---
 
