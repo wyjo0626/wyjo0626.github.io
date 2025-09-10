@@ -1,7 +1,7 @@
 ---
 slug: AdapterSoup
 title: "AdapterSoup: Weight Averaging to Improve Generalization of Pretrained Language Models"
-tags: [PEFT, Adapter, Hyper-X, multilingual learning, multi-task learning]
+tags: [PEFT, Adapter, AdapterSoup, weight-space averaging, text clustering, semantic similarity]
 ---
 
 논문 및 이미지 출처 : <https://aclanthology.org/2023.findings-eacl.153.pdf>
