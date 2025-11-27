@@ -1,14 +1,16 @@
-
+---
 slug: Prophet
 title: "Prophet: Prompting Large Language Models with Complementary Answer Heuristics for Knowledge-based Visual Question Answering"
-tags: [Vision-Language, Multimodal, VQA, meta-tuning, Prophet]
-
+tags: [Vision-Language, Multimodal, VQA, discriminative model, generative model, Prophet]
+---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2303.01903>
 
 # Abstract
 
-Knowledge-based visual question answering (VQA) 는 질문에 답하기 위해 이미지 외부의 external knowledge 를 요구한다. 초기의 연구들은 explicit knowledge bases (KBs) 에서 필요한 knowledge 를 retrieve 하는 방식을 사용하며, 이 과정에서 질문과 무관한 information 이 자주 포함되어 model 의 성능이 제한된다. 최근의 연구들은 powerful large language model (LLM) 을 implicit knowledge engine 으로 사용하여 정답에 필요한 knowledge 를 획득하는 방향을 채택한다. 이러한 방법들이 고무적인 결과를 달성했음에도 불구하고, 저자는 주어진 textual input 이 질문에 답하기 위해 필요한 visual information 을 충분히 묘사하지 못하기 때문에, blind LLM 의 capacity 가 충분히 활성화되지 않았다고 주장한다.
+Knowledge-based visual question answering (VQA) 는 질문에 답하기 위해 이미지 외부의 external knowledge 를 요구한다. 초기의 연구들은 explicit knowledge bases (KBs) 에서 필요한 knowledge 를 retrieve 하는 방식을 사용하며, 이 과정에서 질문과 무관한 information 이 자주 포함되어 model 의 성능이 제한된다. 
+
+최근의 연구들은 powerful large language model (LLM) 을 implicit knowledge engine 으로 사용하여 정답에 필요한 knowledge 를 획득하는 방향을 채택한다. 이러한 방법들이 고무적인 결과를 달성했음에도 불구하고, 저자는 주어진 textual input 이 질문에 답하기 위해 필요한 visual information 을 충분히 묘사하지 못하기 때문에, blind LLM 의 capacity 가 충분히 활성화되지 않았다고 주장한다.
 
 본 논문에서 저자는 knowledge-based VQA 를 위해 LLM 을 answer heuristics 로 prompt 하도록 설계된, 개념적으로 simple 하고 flexible 하며 general 한 framework 인 **Prophet** 을 제안한다. 
 
