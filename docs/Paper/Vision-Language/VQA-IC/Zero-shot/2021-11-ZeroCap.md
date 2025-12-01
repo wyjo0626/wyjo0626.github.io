@@ -58,7 +58,7 @@ prompt 를 사용하면 text generation 의 일부 capability 를 흉내낼 수 
 
 CLIP 은 GAN 또는 기타 generative model 을 사용한 text-driven image manipulation 을 강력하게 지원하기도 한다. 본 연구는 반대 방향을 탐구한다: image 를 사용하여 text 를 생성하는 것으로, large-scale LM 을 CLIP 으로 guide 한다.
 
-guided language modeling 은 연구자들이 large-scale LM (예: GPT-2) 의 prior knowledge 를 조정하려고 노력함에 따라 주요 challenge 가 되었다. fine-tuning 은 종종 attribute 별로 Reinforcement Learning 또는 GAN 을 사용해 이루어진다. latent representation 을 style 과 content 로 disentangle 하는 것은 text style transfer 측면에서 관련이 있다. controllable LM 은 fixed control code 로도 구성될 수 있다. 이상적으로는 fine-tuning 없이 기존 large-scale LM 에 직접 conditioning 이 적용되어야 한다. 여러 연구는 small neural network 를 사용해 LM 을 steering 하는 아이디어를 탐구하였다. 이어서 PPLM 은 간단한 attribute classifier 로도 추가 training 없이 model 을 steering 할 수 있음을 보였다. 본 연구는 visual cue 로부터 novel visual LM guidance 를 제시한다.
+guided language modeling 은 연구자들이 large-scale LM (e.g., GPT-2) 의 prior knowledge 를 조정하려고 노력함에 따라 주요 challenge 가 되었다. fine-tuning 은 종종 attribute 별로 Reinforcement Learning 또는 GAN 을 사용해 이루어진다. latent representation 을 style 과 content 로 disentangle 하는 것은 text style transfer 측면에서 관련이 있다. controllable LM 은 fixed control code 로도 구성될 수 있다. 이상적으로는 fine-tuning 없이 기존 large-scale LM 에 직접 conditioning 이 적용되어야 한다. 여러 연구는 small neural network 를 사용해 LM 을 steering 하는 아이디어를 탐구하였다. 이어서 PPLM 은 간단한 attribute classifier 로도 추가 training 없이 model 을 steering 할 수 있음을 보였다. 본 연구는 visual cue 로부터 novel visual LM guidance 를 제시한다.
 
 # 3. Method
 
@@ -247,7 +247,7 @@ vector subtraction 은 직관적으로 두 vector 사이의 방향을 의미한�
 * 예를 들어, caricature airplane 에서 real airplane 을 subtract 하면 “A caricature illustration” 이라는 concept 이 남는다. 
   * 다시 말해, real airplane image 에 “A caricature illustration” concept 을 더하면 caricature airplane image 와 일치하는 방향으로 caption 이 생성된다.
 * quantity 와 color 개념도 subtraction 으로 드러난다. 예를 들어, green apple 에서 red apple 을 subtract 하면 “Red” 가 나오고, 반대로 subtract 하면 “Green” 이 나온다. 
-  * 많은 basketball 에서 하나의 basketball 을 subtract 하면 “a bunch” 가 된다. geographic area 와 관련된 direction(예: ‘Snow’, ‘Desert’) 도 드러난다. 또한 day/night 개념이나 prison(‘Jailed’) 개념 direction 도 나타난다.
+  * 많은 basketball 에서 하나의 basketball 을 subtract 하면 “a bunch” 가 된다. geographic area 와 관련된 direction(e.g., ‘Snow’, ‘Desert’) 도 드러난다. 또한 day/night 개념이나 prison(‘Jailed’) 개념 direction 도 나타난다.
 * subtraction operator 는 symmetric 하지 않으며, 항상 text 와 직접적으로 aligned 되지 않는다. 
   * 예를 들어, skateboard → skateboard tournament direction 은 “The event” 로 생성되지만, 반대 방향(tournament → skateboard) 은 “schematic fossil view” 와 같이 irrelevant 한 caption 이 생성될 수 있다.
 
@@ -316,7 +316,7 @@ Tab. 2 에 relation 별 성능이 나타난다.
 ![Table 2](image-9.png)
 
 * 이 task 는 challenging 하지만, 저자의 방법은 대부분 relation 에서 R@5 기준 약 30% 의 성과를 보인다.
-* benchmark 가 reference 수가 부족하다는 한계가 있으며, 예를 들어 ‘USA’ 대신 ‘US’ 를 생성하면 miss 로 처리된다. 생성된 text 를 살펴보면 이해 가능한 mistake 도 존재한다(예: Canberra 대신 Sydney). 반면 일부는 truncated sentence 또는 general concept(예: “flag”, “flickr image”) 이 생성되기도 한다.
+* benchmark 가 reference 수가 부족하다는 한계가 있으며, 예를 들어 ‘USA’ 대신 ‘US’ 를 생성하면 miss 로 처리된다. 생성된 text 를 살펴보면 이해 가능한 mistake 도 존재한다(e.g., Canberra 대신 Sydney). 반면 일부는 truncated sentence 또는 general concept(e.g., “flag”, “flickr image”) 이 생성되기도 한다.
 * semantic distance 기반 softer metric 인 CLIP-score 를 사용하면 약 70% correlation 이 관찰된다.
 
 저자는 ClipCap 과 비교하였다. 
