@@ -1,7 +1,7 @@
 ---
 slug: FastVLM
 title: "FastVLM: Efficient Vision Encoding for Vision Language Models"
-tags: [Vision-Language, Multimodal, few-shot learning, Frozen]
+tags: [Vision-Language, Multimodal, Efficient ViT, FastVLM]
 ---
 
 논문 및 이미지 출처 : <https://openaccess.thecvf.com/content/CVPR2025/papers/Vasu_FastVLM_Efficient_Vision_Encoding_for_Vision_Language_Models_CVPR_2025_paper.pdf>
