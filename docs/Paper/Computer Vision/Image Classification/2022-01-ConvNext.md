@@ -1,7 +1,7 @@
 ---
 slug: ConvNext
 title: "A ConvNet for the 2020s"
-tags: [Swin-Transformer, Vision Transformer, Hierarchical Transformer, Computer Vision]
+tags: [ConvNeXt, Vision Transformer, ConvNet, Computer Vision]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2201.03545>
