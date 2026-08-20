@@ -23,7 +23,7 @@ Instruction-tuning 은 Large Language Model (LLM) 이 human intention 을 이해
 
 저자는 user 가 misinformation 을 제공하고, instruction-tuned LLM 이 이러한 input 을 엄격하게 따름으로써 결국 hallucination 을 생성하는 문제적 상황에 주목한다. 이 문제는 특히 LLM 이 user 가 제공한 context 나 document 에 응답하는 데 자주 사용된다는 점에서 중요하다. 
 
-![Figure 1](image-52.png)
+![Figure 1](images/image-52.png)
 
 * Fig. 1 에서 보이듯, user 가 misinformation 을 제공하면 LLM 은 이를 검증 없이 수용할 수 있으며, 그에 따라 hallucination 의 위험이 증가할 수 있다. 
 * 이러한 취약성은 instruction-tuning 에 의해 더 악화될 수 있는데, instruction-tuning 이 LLM 이 user input 을 과도하게 따르도록 만들 수 있기 때문이다.
@@ -110,7 +110,7 @@ Instruction-tuned LLM 은 user prompt 에 강하게 의존하며, 이를 바탕�
 
 이러한 효과를 검증하기 위해, 저자는 user-role 이 LLM 의 response 에 어떤 영향을 미치는지를 측정하는 세 가지 experimental scenario 를 설계하였다. 모든 실험에서 consistency 와 fairness 를 보장하기 위해 동일한 system prompt 를 사용하였다. 각 scenario 의 illustration 은 Fig. 2 에 제시되어 있다.
 
-![Figure 2](image-53.png)
+![Figure 2](images/image-53.png)
 
 #### Single-Turn Query
 
@@ -135,7 +135,7 @@ $$
 
 * 여기서 $Q_{\checkmark}$ 는 전체 dataset $Q$ 중에서 LLM 이 closed-book setting 에서 올바르게 답한 question 집합을 나타낸다.
   * 이들은 model 의 parametric knowledge 의 일부로 간주된다.
-* 한편 $Q_{\times@m}$ 는 misinformation 이 주어졌을 때 LLM 이 misinformation 과 일치하는 incorrect answer 를 선택한 question 집합을 나타낸다.
+* 한편 $Q_{\times @m}$ 는 misinformation 이 주어졌을 때 LLM 이 misinformation 과 일치하는 incorrect answer 를 선택한 question 집합을 나타낸다.
 
 이 MSR score 는 instruction-tuned LLM 이 자신의 parametric knowledge 를 얼마나 자주 무시하고, 대신 정답과 모순되는 misinformation 을 채택하는지를 정량화한다.
 
@@ -157,7 +157,7 @@ $$
 
 결과는 Fig. 3 에 시각적으로 제시되어 있으며, 자세한 수치는 Tab. 3 에 제공된다.
 
-![Figure 3](image-54.png)
+![Figure 3](images/image-54.png)
 
 #### Susceptibility to Misinformation by Role (APD vs. UPD)
 
@@ -190,11 +190,11 @@ Sec. 4.2 에서 저자는 instruction-tuned LLM 이 user-role 에 제시된 misi
 
 이를 위해 저자는 4 개의 open-source model 에 대해 그 base version, 즉 instruction-tuning 이전 version 을 사용하여 동일한 실험을 수행하였고, 그 결과를 Fig. 4 에 제시하였다. 
 
-![Figure 4](image-55.png)
+![Figure 4](images/image-55.png)
 
 * 또한 instruction-tuning 전후의 scenario 별 ranking 변화는 Fig. 5 에 시각화하였다. 
 
-![Figure 5](image-56.png)
+![Figure 5](images/image-56.png)
 
 base model 의 자세한 experimental result 는 Tab. 4 에서 확인할 수 있다.
 
@@ -226,7 +226,7 @@ Fig. 6 은 misinformation length 가 증가함에 따라 UPD 와 APD 사이의 M
 
 Sec. 3.1 에서 설명했듯, 저자는 Farm dataset 의 두 번째와 세 번째 paragraph 를 순차적으로 추가하여, 더 긴 misinformation 에 LLM 이 어떻게 반응하는지를 조사하였다. 
 
-![Figure 6](image-57.png)
+![Figure 6](images/image-57.png)
 
 * 결과는 대부분의 경우 misinformation length 가 증가할수록 UPD 와 APD 사이의 MSR score gap 이 점차 감소함을 보여준다. 
   * 특히 Llama-3-8B-Instruct 에서는 이 gap 이 꾸준히 줄어들었고, 일부 model 에서는 APD 의 MSR score 가 오히려 UPD 를 넘어섰다. 
@@ -246,7 +246,7 @@ Please choose the correct answer to the question based on the document by select
 
 NQ dataset 에 대한 실험 결과는 Fig. 7 에 제시된다. 
 
-![Figure 7](image-58.png)
+![Figure 7](images/image-58.png)
 
 * Qwen-2.5-7B-Instruct 를 제외하면, 모든 model 은 warning 추가 전후에 세 scenario 에 걸쳐 일관된 ranking 을 유지하였다. 
   * 이는 misinformation warning 이 scenario 간 상대적 susceptibility ranking 에는 영향을 미치지 않았음을 의미한다. 

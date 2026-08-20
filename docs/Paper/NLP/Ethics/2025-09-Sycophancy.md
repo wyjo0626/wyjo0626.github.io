@@ -52,7 +52,7 @@ LLM 은 evaluative scenario 에서 효과적인 것으로 보인다. 이러한 �
 
 요약하면, 저자의 연구는 LLM sycophancy 가 어떤 조건에서 나타나는지를 검토함으로써 이에 대한 더 깊은 이해에 기여한다.
 
-![Figure 1](image-42.png)
+![Figure 1](images/image-42.png)
 
 # 2 Related Work
 
@@ -93,7 +93,7 @@ Chain of Thought (CoT) prompting 은 few-shot example 로 model 이 최종 answe
 
 이 연구는 LLM sycophancy 를 조사하기 위해 experimental framework (Fig. 2) 를 사용한다. 
 
-![Figure 2](image-43.png)
+![Figure 2](images/image-43.png)
 
 1. 저자는 먼저 다양한 Multiple Choice Questions (MCQs) 집합을 수집하고, zero-shot CoT prompting 을 통해 초기 LLM response 를 유도한다. 
    * 이 response 로부터 상충하는 response pair 를 식별한 다음, 후속 turn 에서 LLM 에 제시되는 (rebuttal) challenge 를 구성하거나, 또는 새로운 setting 에서 original response 와 상충하는 counterpart 사이를 judge 하도록 LLM 에 prompt 한다. 
@@ -105,7 +105,7 @@ Chain of Thought (CoT) prompting 은 few-shot example 로 model 이 최종 answe
 
 결과가 단일 domain 을 넘어 generalize 되도록 하기 위해, 저자는 다양한 academic 및 cognitive domain 에 걸친 publicly available MCQ dataset 의 diverse set 을 구성한다 (Tab. 1). 
 
-![Table 1](image-44.png)
+![Table 1](images/image-44.png)
 
 각 dataset 에서 저자는 무작위로 300 개의 question 을 sample 한다. 저자가 MCQ 를 dataset 으로 선택한 이유는 definitive 한 ground truth 가 존재하고, answer extraction 및 verification 이 쉽기 때문이다.
 
@@ -123,7 +123,7 @@ Chain of Thought (CoT) prompting 은 few-shot example 로 model 이 최종 answe
 
 이 균형은 대체로 달성되지만, GPT-4o mini 와 GPT-4.1 nano 의 경우에는 이 model 들의 response 와 disagree 하는 response 가 부족하여 약간의 deviation 이 발생한다. disagreement pair count 와 correct ratio 는 Tab. 2 에 보고된다. 
 
-![Table 2](image-45.png)
+![Table 2](images/image-45.png)
 
 이후 challenging response 는 opposing answer pool 에서 무작위로 선택되며, consistency 를 보장하기 위해 모든 downstream experiment 에서 고정된다.
 
@@ -135,7 +135,7 @@ Chain of Thought (CoT) prompting 은 few-shot example 로 model 이 최종 answe
 
 각 challenge 의 예시는 Tab. 3 에서 찾을 수 있다.
 
-![Table 3](image-46.png)
+![Table 3](images/image-46.png)
 
 ### 3.4.1 Evaluation Style Rebuttal
 
@@ -205,7 +205,7 @@ $$
 
 Tab. 4 는 Full Rebuttal conversational challenge (FR) 와 judge scenario 에서 서로 다른 model 전반의 persuasion percentage 를 보여준다. 
 
-![Table 4](image-47.png)
+![Table 4](images/image-47.png)
 
 * GPT-4o-mini 를 제외하면, 결과는 모든 model 이 neutral judge evaluation 에서 제시될 때보다 second conversational turn 에서 user input 으로 counterargument 가 제공될 때 이를 채택할 가능성이 더 높다는 것을 보여준다. 
 * 대부분의 결과는 통계적으로 유의하며, persuasion percentage $(\mathcal{F}, \mathcal{F}_c, \mathcal{F}_i$; Eq. 1 참조$)$ 가 FR 또는 Judge 처리에 따라 다르지 않다는 null hypothesis 를 기각한다 $(p < 0.05)$.
@@ -214,7 +214,7 @@ Tab. 4 는 Full Rebuttal conversational challenge (FR) 와 judge scenario 에서
 
 Tab. 5 는 서로 다른 evaluation style rebuttal 전반에서의 persuasion percentage 를 보고한다. 결과는 challenging rebuttal 에서 제공되는 reasoning 양과, LLM 이 challenger 를 선택할 확률 사이에 명확한 상관관계가 있음을 보여준다.
 
-![Table 5](image-48.png)
+![Table 5](images/image-48.png)
 
 * 모든 refutation type 및 model 에 대해, 모든 persuasion percentage $(F, F_c, F_i$; Eq. 1$)$ 는 reasoning depth 가 증가할수록 함께 증가한다.
 * 이는 reasoning 이 flawed 하더라도, reasoning 이 제공되면 LLM 이 user feedback 을 수용할 가능성이 더 높다는 점을 강조한다.
@@ -223,7 +223,7 @@ Tab. 5 는 서로 다른 evaluation style rebuttal 전반에서의 persuasion pe
 
 Tab. 6 은 LLM 이 다양한 casual challenge 로 challenge 받을 때의 persuasion percentage 를 보고한다. 
 
-![Table 6](image-49.png)
+![Table 6](images/image-49.png)
 
 * casual prompting 의 평균 persuasion percentage (Tab. 6) 를 evaluation-style Full Rebuttal (FR, 평균 $F = 56.1%$, Tab. 5) 의 결과와 비교하면, reasoning 이 없어도 casual feedback 이 더 persuasive 할 수 있음을 알 수 있다.
 * Tab. 5 와 Tab. 6 의 마지막 row 에 제시된 평균 persuasion percentage 를 보면, casual style 가운데 Sure Rebuttal (SR) 이 전체 persuasion percentage $F$ 에서 가장 높은 84.5% 를 보인다. 
@@ -244,7 +244,7 @@ $$
 
 와 model 이 설득되었는지 여부 사이의 관계를 분석했다. 이 experiment 를 위한 prompt 는 Appendix Sec. E 에서 찾을 수 있다.
 
-![Table 7](image-50.png)
+![Table 7](images/image-50.png)
 
 Tab. 7 의 결과는 명확한 상관관계를 보여준다.
 
@@ -264,7 +264,7 @@ $$
 
 이 metric 은 model 이 response 를 올바르게 바꾸는 비율에서, 잘못 바꾸는 비율을 뺀 값을 나타낸다. 값이 높을수록 더 beneficial 한 interaction 임을 의미한다.
 
-![Table 8](image-51.png)
+![Table 8](images/image-51.png)
 
 Tab. 8 에서의 분석은 두 가지 핵심 발견을 보여준다.
 
