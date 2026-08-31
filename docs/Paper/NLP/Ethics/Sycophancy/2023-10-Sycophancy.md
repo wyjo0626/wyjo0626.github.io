@@ -1,5 +1,5 @@
 ---
-slug: FQM
+slug: Measuring_Sycophancy
 title: "Towards Understanding Sycophancy in Language Models"
 tags: [Ethics, Sycophancy]
 ---
