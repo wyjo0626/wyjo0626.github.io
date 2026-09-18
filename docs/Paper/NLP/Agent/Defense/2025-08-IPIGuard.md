@@ -36,7 +36,7 @@ Ladjrge language model (LLM) agents 는 최근 상당한 주목을 받아왔다.
 
 이 논문에서 저자는 LLM agents 에서 IPI attack 을 방어하도록 설계된 새로운 task execution paradigm 인 **IPIGUARD** 를 제안하며, 이는 action planning 과 외부 data 와의 interaction 을 decouple 함으로써 앞서 언급한 한계를 해결한다. 
 
-![Figure 1](image-22.png)
+![Figure 1](images/image-22.png)
 
 * Fig. 1 에서 보이듯이, IPIGUARD 는 LLM agent 의 planning capability 를 활용하여 **Tool Dependency Graph (TDG)** 를 구성하며, 이는 tools 간의 data dependency 와 execution order 를 명시적으로 model 하는 동시에 execution 중 tool invocation 에 strict constraint 를 부과한다. 
 * 구체적으로, **TDG** 는 task execution process 를 tool dependency 로 이루어진 **directed acyclic graph (DAG)** 위에서의 traversal 로 공식화한다. 
@@ -107,7 +107,7 @@ LLM 의 planning capability 에 대한 최근의 발전에 동기를 받아, 저
 
 action planning 과 external data 와의 interaction 을 단순하게 decouple 하면 세 가지 핵심 challenge 가 발생한다. 여기에는 (1) 특정 tool invocation 에 대한 unknown arguments, (2) static plan 으로 인한 제한된 adaptability, (3) user task 와 injected task 사이의 tool overlap 이 포함된다.
 
-![Figure 2](image-23.png)
+![Figure 2](images/image-23.png)
 
 #### C1: Unknown Arguments for Tool Invocations
 
@@ -191,7 +191,7 @@ execution 동안 새로운 tool invocation 을 제한하면 system security 는 
 
 user task 와 injected task 사이에 tool overlap 이 존재하는 scenario 에서 (C3), agent 는 argument 를 잘못 estimate 하여 성공적인 IPI attack 으로 이어질 수 있다. 하나의 잠재적인 완화 전략은 argument estimation 동안 tool response 에 포함된 instruction 을 무시하도록 agent 에게 명시적으로 지시하는 것이다. 그러나 LLM 은 instruction following 에 최적화되어 있기 때문에, instruction 을 따르도록 prompting 하는 것보다 instruction disregard 를 일관되고 신뢰성 있게 보장하는 것이 더 어렵다.
 
-![Figure 3](image-24.png)
+![Figure 3](images/image-24.png)
 
 따라서 저자는 **Fake Tool Invocation mechanism** 을 도입한다. 
 
@@ -235,12 +235,12 @@ user task 와 injected task 사이에 tool overlap 이 존재하는 scenario 에
 
 저자는 여러 model 에 걸쳐 IPIGUARD 의 effectiveness 를 평가한다. 
 
-![Figure 4](image-25.png)
+![Figure 4](images/image-25.png)
 
 * Fig. 4 에서 보이듯이, 저자의 방법은 reasoning model 과 non-reasoning model 모두에서 대부분의 IPI attack 을 일관되게 완화하면서, utility 저하는 미미한 수준에 그친다. 
 * 또한 서로 다른 scenario 와 attack type 에 대한 저자의 방법의 robustness 를 더 자세히 분석하기 위해, 저자는 GPT-4o-mini 에 대해 포괄적인 evaluation 을 수행하며, 그 결과는 Tab. 1 과 Fig. 5 에 제시된다.
 
-![Figure 5](image-26.png)
+![Figure 5](images/image-26.png)
 
 ### 4.2.1 Benign Utility Evaluation
 
@@ -253,7 +253,7 @@ Workspace scenario 에서 다소 낮은 score 는, agent 가 tool response 에 �
 
 ### 4.2.2 Security Evalutation
 
-![Table 1](image-27.png)
+![Table 1](images/image-27.png)
 
 * Tab. 1 에서의 주요 관찰은 저자의 방법이 보여주는 우수한 defensive capability 이며, 이는 네 가지 모든 attack 에서 일관되게 가장 낮은 ASR 을 달성하고, 결코 1% 를 초과하지 않는다. 
 * 이는 성능이 크게 달라지는 다른 method 와 대비되게, 다양한 attack strategy 에 대한 adaptability 를 보여준다. 
@@ -267,7 +267,7 @@ Workspace scenario 에서 다소 낮은 score 는, agent 가 tool response 에 �
 
 저자는 GPT-4o-mini 를 사용하여 Important Instruction attack 에 대한 다양한 defense strategy 의 token overhead 를 평가한다. 일부 defense 는 auxiliary model 에 대한 query 와 같이 LLM query 를 넘어서는 추가 operation 을 포함하므로, 저자는 평균 task completion time 도 함께 보고한다 (Tab. 2 참조).
 
-![Table 2](image-28.png)
+![Table 2](images/image-28.png)
 
 * defense 없는 baseline 과 비교했을 때, 저자의 접근은 token usage 를 약 2 배 증가시킨다. 그러나 robustness 의 상당한 향상을 고려할 때, 저자는 security 가 중요한 상황에서 이러한 overhead 를 가치 있는 trade-off 로 본다. 
 * 또한 IPIGUARD 의 주요 cost 가 task execution 에 있으므로, 저자는 planning 과 execution 에 서로 다른 LLM 을 사용하여 utility–cost trade-off 를 개선하는 방안을 제안하며, 이는 IPIGUARD 가 가능하게 하는 장점이다. 
@@ -277,7 +277,7 @@ Workspace scenario 에서 다소 낮은 score 는, agent 가 tool response 에 �
 
 저자는 Tool Dependency Graph 순회에서 두 가지 핵심 component, 즉 Fake Tool Invocation (FTI) 과 Node Expansion (NE) 의 effectiveness 를 평가하기 위해 ablation study 를 수행한다.
 
-![Table 3](image-29.png)
+![Table 3](images/image-29.png)
 
 * Tab. 3 에서 보이듯이, 어느 component 도 사용하지 않을 때에도 attack success rate (ASR) 는 낮게 유지되며, 이는 injected instruction 에 의해 촉발된 tool invocation 을 차단하는 것이 본질적으로 IPI attack 에 효과적이라는 저자의 핵심 통찰을 뒷받침한다. 
 * NE 를 도입하면 task utility (BU 와 UA 모두) 가 크게 향상되지만, ASR 이 약간 증가한다. 

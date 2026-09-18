@@ -42,7 +42,7 @@ task alignment 를 실제로 구현하기 위해, 저자는 LLM agents 를 위�
 * 이 shield 는 agent 또는 tools 로부터 비롯된 system 내의 각 directive 가 user 의 goals 와 완전히 aligned 되어 있는지를 검증한다. 
 * instruction relationships 를 분석하고 시의적절한 intervention 을 제공함으로써, Task Shield 는 agent 가 user tasks 를 완료할 수 있는 능력을 유지하면서 잠재적으로 관련 없는 actions 를 효과적으로 방지한다.
 
-![Figure 1](image.png)
+![Figure 1](images/image.png)
 
 저자의 contributions 는 다음과 같다.
 
@@ -202,7 +202,7 @@ task alignment condition 을 만족하지 않는 conversation examples 은 Appen
 
 # 4 The Task Shield Framework
 
-![Figure 2](image-1.png)
+![Figure 2](images/image-1.png)
 
 저자는 task alignment 를 이상적인 security property 로 정의했지만, 이를 실제로 구현하려면 enforcement mechanism 이 필요하다. 이러한 필요를 해결하기 위해, 저자는 instruction 이 user objectives 와 align 되는지를 지속적으로 모니터링하고 강제하는 **Task Shield framework** 를 도입한다.
 
@@ -344,7 +344,7 @@ experiment 는 LLM agent 의 performance 와 robustness 를 측정하기 위해 
 * **Ignore Previous**  
   prior instructions 를 무효화한다.
 
-![Table 1](image-2.png)
+![Table 1](images/image-2.png)
 
 * Tab. 1 에서 보이듯이, **Important Instructions** attack 은 가장 강한 threat 를 제기하며, defense 가 없는 GPT-4o 에서 attack success rate (ASR) 47.69% 를 달성하는 동시에 utility 를 유의미하게 저하시킨다. 
 * Task Shield 는 모든 attack types 에 걸쳐 일관된 superiority 를 보여주는데, ASRs 를 줄일 뿐만 아니라 no-defense baseline 과 비교해 utility 를 유지하거나 개선한다.
@@ -358,7 +358,7 @@ experiment 는 LLM agent 의 performance 와 robustness 를 측정하기 위해 
 
 Security-Utility Trade-offs
 
-![Figure 3](image-3.png)
+![Figure 3](images/image-3.png)
 
 * Fig. 3 은 benign (attack 이전) 및 adversarial (attack 하) conditions 에서 GPT-4o 상의 서로 다른 defenses 의 performance 를 Pareto fronts 상에 시각화하여 security-utility trade-off 를 보여준다. 
 * Pareto front 는 한 metric 을 개선하려면 다른 metric 의 저하가 필요한 optimal solutions 를 나타낸다. 
@@ -374,7 +374,7 @@ Task Shield 는 두 scenarios 모두에서 일관되게 Pareto front 에 접근�
 
 #### Detailed Results on GPT-4o and GPT-4o-mini
 
-![Table 2](image-4.png)
+![Table 2](images/image-4.png)
 
 * Tab. 2 는 두 models 모두에 걸쳐 "Important Instructions" attack 에 대한 서로 다른 defense mechanisms 의 comparative analysis 를 제시한다. 
 * GPT-4o 와 GPT-4o-mini 모두에서, Task Shield 는 모든 task suites 에 걸쳐 일관되게 superior overall performance 를 보여준다.
