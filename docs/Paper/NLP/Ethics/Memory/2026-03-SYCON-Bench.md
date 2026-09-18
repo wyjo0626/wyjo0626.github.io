@@ -1,12 +1,10 @@
 ---
-slug: SYCON-Bench
+slug: GoalPref-Bench
 title: "Personalization Increases Affective Alignment but Has Role-Dependent Effects on Epistemic Independence in LLMs"
-tags: [Benchmark, SYCON-Bench, Ethics, Long-Term Memories, Sycophancy]
+tags: [Benchmark, GoalPref-Bench, Ethics, Long-Term Memories, Sycophancy]
 ---
 
 논문 및 이미지 출처 : <https://arxiv.org/pdf/2603.00024>
-
-원문에는 독립적인 Conclusion section 이 없으므로, Abstract 부터 4. Discussion, 4.1. Limitations 및 Impact Statement 까지 번역한다. References 와 Appendix 는 제외하며, Figure 및 Table 의 caption 은 생략한다.
 
 # Abstract
 

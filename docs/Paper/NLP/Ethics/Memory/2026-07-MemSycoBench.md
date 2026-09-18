@@ -4,7 +4,7 @@ title: "MemSyco-Bench: Benchmarking Sycophancy in Agent Memory"
 tags: [Benchmark, MemSycoBench, MemSyco-Bench, Ethics, Long-Term Memories, Sycophancy]
 ---
 
-
+논문 및 이미지 출처 : <https://arxiv.org/pdf/2607.01071>
 
 # Abstract
 
