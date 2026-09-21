@@ -40,14 +40,11 @@ PersistBench 는 cross-domain leakage 및 memory-induced sycophancy 를 위한 h
 저자는 long-term memory 로 augment 된 LLM 을 평가하기 위해 PersistBench 에서 18 개의 frontier 및 open-weight LLM 을 평가한다.
 
 * Cross-domain leakage 의 median failure rate 는 53% 이다.
-
   * 예를 들어 가장 심각한 leakage 는 education 및 formative experience domain 에서 health 및 medical 기반 domain 으로의 leakage 에서 나타난다.
 * Memory-induced sycophancy 의 경우 대부분의 model 에서 90% 를 초과하는 failure rate 가 관찰된다.
-
   * identity validation 과 관련된 sample 이 response 를 가장 sycophantic 하게 만드는 것으로 나타난다.
   * continuity 와 personalization 을 우선시함으로써 LLM 은 objective reality 보다 user belief consistency 를 의도치 않게 우선할 수 있으며, 결과적으로 echo chamber 를 형성할 수 있다.
 * Beneficial memory set 과 비교하면 performance 간 correlation 은 약하다.
-
   * GPT-5.2 는 cross-domain leakage 와 sycophancy 에서 가장 낮은 failure rate 를 달성한다.
   * 반면 Claude-Opus-4.5 는 beneficial memory sample 에서 가장 좋은 performance 를 보인다.
 
@@ -290,12 +287,10 @@ $$
 Dataset 의 각 subset 에는 서로 다른 judge 를 사용한다.
 
 * **Cross-domain leakage 및 sycophancy**
-
   * Judge 는 response $y$ 에 inappropriate memory influence 가 존재하는지를 평가한다.
   * 1 에서 5 사이의 ordinal failure score 를 생성한다.
   * 높은 score 일수록 더 심각한 memory-induced failure 를 의미한다.
 * **Beneficial memory**
-
   * 별도의 judge 가 query 에 답할 때 relevant memory 가 적절히 recall 되고 적용되었는지를 평가한다.
   * ${1,2,3}$ 범위의 score 를 부여하며 각각 모든 relevant memory 의 올바른 사용, partial usage, relevant memory 를 전혀 사용하지 않음을 나타낸다.
 
@@ -416,16 +411,13 @@ Fig. 30 은 18 개 model 전체의 aggregate cross-domain leakage FR 을 보여�
 Appendix Q.1.1 은 common failure mode 에 대한 상세 분석을 포함한다. Fig. 31 은 cross-domain leakage 를 유발하는 다양한 identified failure mode 의 mean failure rate 를 보고한다.
 
 * **Thematic Bridging**
-
   * unrelated domain 을 broad concept 로 연결하는 query 이다.
   * 가장 빈번하게 나타난다: $n=50$.
   * FR 은 47.4% 이다.
 * **Direct Retrieval Triggers**
-
   * memory 와 query 사이에서 직접적인 phrase match 가 발생하는 경우이다.
   * FR 은 52.5% 이다.
 * **Parallel World**
-
   * LLM 이 사용자의 attribute 를 parallel third party 에 적용하는 경우이다.
   * FR 은 45.1% 이다.
 
@@ -571,19 +563,14 @@ Experiment 는 5 개의 frontier model 에서 수행된다.
 다음 prompt-based 및 prompt-optimized defense 를 고려한다.
 
 * **Baseline**
-
   * 현재 system 에서 추출된 prompt 를 사용한다.
 * **Permissive**
-
   * 모든 response 를 personalize 하기 위해 memory 를 적극적으로 사용한다.
 * **Restrictive**
-
   * 기본적으로 memory 를 ignore 하도록 유도한다.
 * **Rubric-informed**
-
   * Claude-Opus-4.5 에 모든 judge rubric 을 제공하고, 모든 evaluation category 에서 failure rate 를 최적으로 줄일 수 있는 memory guideline 을 작성하도록 prompt 한다.
 * **GEPA-Optimized**
-
   * GEPA 는 evolutionary prompt optimization 방법이다.
   * Reflection model 에 example model response 와 judge 의 reasoning 을 제공하고, 모든 category 에서 FR 을 최소화하는 prompt 를 생성하도록 한다.
   * 각 subset 에서 20 개 sample 을 사용한다.
@@ -623,10 +610,8 @@ Irrelevant memory 가 model 에 도달하기 전에 filtering 함으로써 leaka
 저자는 두 가지 selective-memory scenario 를 test 한다.
 
 1. **embedding-similarity retrieval**
-
    * cosine-similarity threshold 를 초과하는 memory 만 포함한다.
 2. **LLM-based retrieval**
-
    * 별도의 model 이 context window 로 전달할 memory 를 선택한다.
 
 Embedding-similarity retrieval 에서 cosine similarity threshold 를 0% 에서 60% 로 높이면 다음과 같은 변화가 나타난다.

@@ -30,7 +30,6 @@ memory-enabled agent 에서는 user influence 가 더 이상 현재 interaction 
 
 * **Source:** influence 의 source 가 현재 user input 에서 retrieved historical memory 로 이동한다. 따라서 outdated belief 또는 preference 가 현재 query 에 존재하지 않는 경우에도 response 에 영향을 미칠 수 있다.
 * **Decision role:** failure 는 단순히 user 에 동의하는 것 이상으로 확장된다.
-
   * agent 는 retrieved memory 를 factual evidence 로 취급할 수 있다.
   * valid scope 밖에서 memory 를 적용할 수 있다.
   * objective evidence 보다 memory 를 우선시할 수 있다.
@@ -41,11 +40,9 @@ memory-enabled agent 에서는 user influence 가 더 이상 현재 interaction 
 실질적인 중요성에도 불구하고 memory-induced sycophancy 는 기존 evaluation 에서 충분히 탐구되지 않았다. LongMemEval, LoCoMo, STALE, PersonaMem 을 포함한 현재 memory benchmark 는 주로 agent 가 relevant memory 를 저장하고, retrieval 하고, 사용할 수 있는지를 평가한다. 여기에는 2 가지 핵심 gap 이 존재한다.
 
 * 첫째, 기존 benchmark 는 **memory 가 항상 유익한지를 체계적으로 평가하지 않는다.**
-
   * 대부분의 task 는 retrieved memory 가 현재 question 에 answer 하는 데 도움이 되어야 한다고 가정한다.
   * STALE 과 PersonaMem 은 user information 또는 preference 가 response 에 영향을 미치는 사례를 포함하지만, memory 가 언제 사용되어야 하고, constrain 되어야 하고, update 되어야 하며, ignore 되어야 하는지를 명확하게 구분하지 않는다.
 * 둘째, 상당한 difficulty 가 **retrieval 자체에서 발생한다.**
-
   * 많은 failure 는 system 이 필요한 information 을 recovery 하지 못하기 때문에 발생한다.
   * relevant memory 가 retrieval 되고 나면 agent 는 이를 직접 사용해야 하는 것으로 기대되는 경우가 많다.
 
@@ -73,9 +70,10 @@ evaluation focus 를 retrieval success 에서 post-retrieval memory use 로 이�
 
 benchmark 를 소개하기 전에 저자는 2 가지 preliminary study 를 수행한다.
 
-첫 번째 study 는 **memory snippet 이 sycophancy 를 유발할 수 있는가**를 묻는다. objective question 앞에 잘못되었지만 user 에게 익숙한 memory 를 추가했을 때, agent 가 이를 factual signal 로 취급하여 answer 를 변경하는지를 평가한다.
-
-두 번째 study 는 **기존 memory benchmark 가 memory-induced sycophancy 를 평가할 수 있는가**를 묻는다. 저자는 error 가 주로 retrieval failure 에서 발생하는지, 아니면 successful retrieval 이후의 incorrect generation 에서 발생하는지를 분석한다. 상세한 preliminary study setting 은 Appendix F.2 에 제시되어 있다.
+* 첫 번째 study 는 **memory snippet 이 sycophancy 를 유발할 수 있는가**를 묻는다. 
+  * objective question 앞에 잘못되었지만 user 에게 익숙한 memory 를 추가했을 때, agent 가 이를 factual signal 로 취급하여 answer 를 변경하는지를 평가한다.
+* 두 번째 study 는 **기존 memory benchmark 가 memory-induced sycophancy 를 평가할 수 있는가**를 묻는다.   
+  * 저자는 error 가 주로 retrieval failure 에서 발생하는지, 아니면 successful retrieval 이후의 incorrect generation 에서 발생하는지를 분석한다. 상세한 preliminary study setting 은 Appendix F.2 에 제시되어 있다.
 
 ## 2.1 Do Memory Induce Sycophancy?
 
@@ -92,10 +90,8 @@ Fig. 2 의 result 는 context 내의 incorrect memory snippet 이 factual judgme
 
 * memory snippet 을 추가하면 3 개 model 모두에서 accuracy 가 감소하고 sycophancy rate 가 증가한다.
 * 가장 큰 accuracy 감소는 DeepSeek-V4-Flash 에서 나타난다.
-
   * accuracy 는 56.1% 에서 40.2% 로 감소한다.
 * 가장 큰 sycophancy-rate 증가 역시 DeepSeek-V4-Flash 에서 나타난다.
-
   * sycophancy rate 는 24.3% 에서 52.3% 로 증가한다.
 
 이 result 는 memory snippet 이 model 을 user 가 제공한 misleading clue 쪽으로 체계적으로 이동시키며, factual accuracy 를 감소시키는 동시에 memory-aligned error 를 증가시킨다는 것을 보여준다. 따라서 sycophancy 는 단순히 동의하는 response style 에 그치지 않는다. 이는 factual answer 자체를 변경하고 model 이 context 로부터 incorrect claim 을 받아들이도록 만들 수 있다.
@@ -115,7 +111,6 @@ Fig. 3 의 result 는 기존 memory benchmark 의 성능이 대체로 retrieval 
 
 * LongMemEval, LoCoMo, STALE, PersonaMem 에서 answer error 는 주로 **R-/A-** quadrant 에 집중되어 있으며, **R+/A-** case 는 훨씬 적다.
 * 4 개 benchmark 전체에서:
-
   * R-/A- 는 전체 sample 의 47.4%–66.1% 를 차지한다.
   * R+/A- 는 5.8%–13.7% 에 불과하다.
 
@@ -180,15 +175,12 @@ agent 가 이러한 memory 를 사용해야 하는지 판단하는 대신 해당
 먼저 retrieved memory 가 relevant 하지만 decision 을 결정해서는 안 되는 3 가지 case 를 고려한다.
 
 * **OBJECTIVE FACT JUDGMENT**
-
   * historical user memory 가 존재하지만 evidence 로 사용되어서는 안 되는 objective question 을 평가한다.
   * 예를 들어 user 가 어떤 도시를 좋아한다는 사실이 그 도시를 한 국가의 수도로 만드는 것은 아니다.
 * **CONTEXTUAL SCOPE CONTROL**
-
   * agent 가 memory 의 scope 를 준수하는지를 평가한다.
   * 예를 들어 concise writing 을 선호한다는 user preference 때문에 team report 가 detailed requirement 를 무시해서는 안 된다.
 * **MEMORY-EVIDENCE CONFLICT**
-
   * user memory 와 conflict 하는 verified evidence 가 존재할 때 agent 가 verified evidence 를 따르는지를 평가한다.
   * 예를 들어 user 가 선호하는 laptop 이 다른 model 보다 specifications 가 열등하다면 favorite laptop 이 더 높은 우선순위를 가져서는 안 된다.
 
@@ -199,10 +191,8 @@ agent 가 이러한 memory 를 사용해야 하는지 판단하는 대신 해당
 다음으로 personalization 이 필요하며 agent 가 사용해야 할 올바른 memory 를 선택해야 하는 case 를 고려한다.
 
 * **VALID MEMORY SELECTION**
-
   * user preference 가 update, reverse 또는 replace 된 경우 obsolete memory 를 따르는 대신 현재 valid 한 preference 를 식별할 수 있는지를 평가한다.
 * **PERSONALIZED MEMORY USE**
-
   * valid memory 를 식별한 이후, agent 가 recommendation, advice 또는 subjective-choice task 에서 이를 사용해 response 를 향상시킬 수 있는지를 평가한다.
 
 이 task 들은 agent 가 sycophancy 를 유발하지 않으면서 outdated memory 를 update 하고 valid memory 를 personalization 에 사용할 수 있는지를 평가한다.
@@ -298,10 +288,8 @@ MemSyco-Bench 는 answer accuracy 와 response 가 memory-induced sycophancy 를
 추가로 task-specific memory-related metric 을 report 한다.
 
 * **OBJECTIVE FACT JUDGMENT**, **CONTEXTUAL SCOPE CONTROL**, **MEMORY-EVIDENCE CONFLICT**
-
   * response 가 memory 를 따라서는 안 되는 상황에서 실제로 memory 를 따르는지를 측정하기 위해 **SYCOPHANCY RATE**를 사용한다.
 * **PERSONALIZED MEMORY USE**, **VALID MEMORY SELECTION**
-
   * agent 가 personalization 을 위해 valid memory 를 사용하는지와 outdated memory 를 따르는 것을 회피하는지를 측정하기 위해 **MEMORY-USE METRICS**를 사용한다.
 
 상세한 rubric, judging criteria, metric formula 는 Appendix D 에 제시되어 있다.
@@ -317,10 +305,8 @@ MemSyco-Bench 는 answer accuracy 와 response 가 memory-induced sycophancy 를
 * **Q3 — Behavioral Guidance:** reasoning behavioral guidance 는 sycophantic behavior 에 어떠한 영향을 미치는가?
 * **Q4 — Scenario Diagnostics:** memory system 은 왜 복잡한 memory-use scenario 에서 낮은 성능을 보이는가?
 * **Q5 — Case Study:** agent sycophancy 의 대표적인 case 는 무엇인가?
-
   * Appendix E.2 에서 다룬다.
 * **Q6 — Efficiency Analysis:** 서로 다른 memory framework 의 inference efficiency 는 어떠한가?
-
   * Appendix E.3 에서 분석한다.
 
 ## 4.1 Generation Performance (Q1)
@@ -339,16 +325,12 @@ Tab. 1 의 main result 로부터 다음 observation 을 얻는다.
 corresponding baseline 과 비교할 때 많은 memory system 의 result 는 바람직하지 않은 방향으로 이동한다.
 
 * **OBJECTIVE FACT JUDGMENT**
-
   * 모든 memory system setting 에서 두 model 의 Acc 가 감소한다.
   * Qwen3-8B:
-
     * 49.12 에서 26.00–36.00 으로 감소한다.
   * DeepSeek-V4-Flash:
-
     * 74.33 에서 56.33–63.37 로 감소한다.
 * **CONTEXTUAL SCOPE CONTROL**
-
   * Qwen3-8B 에서 Mem0 와 LightMem 은 Acc 를 70.00 에서 각각 13.34 와 13.67 로 감소시킨다.
   * DeepSeek-V4-Flash 에서는 79.00 에서 각각 28.00 과 33.33 으로 감소시킨다.
 
@@ -359,14 +341,11 @@ corresponding baseline 과 비교할 때 많은 memory system 의 result 는 바
 memory 가 objective evidence 를 대체해서는 안 되는 상황에서 memory 는 종종 sycophancy 를 증가시킨다.
 
 * **OBJECTIVE FACT JUDGMENT**
-
   * full dialogue 또는 external memory 를 추가하면 두 model 모두에서 Acc 가 감소하고 Syco. Rate 가 증가한다.
   * Qwen3-8B:
-
     * baseline 은 49.12 Acc, 27.43 Syco. Rate 이다.
     * memory condition 에서는 26.00–36.00 Acc, 44.47–64.67 Syco. Rate 이다.
   * DeepSeek-V4-Flash:
-
     * baseline 은 74.33 Acc, 18.67 Syco. Rate 이다.
     * memory condition 에서는 56.33–63.37 Acc, 32.00–42.67 Syco. Rate 이다.
 * **MEMORY-EVIDENCE CONFLICT**
@@ -383,17 +362,14 @@ memory system 은 personalization 을 지원할 수 있지만 memory update 에�
 
   * 일부 system 은 valid memory use 를 향상시킨다.
   * Qwen3-8B 에서 A-Mem 은 Full Dialog 대비:
-
     * Acc 를 45.67 에서 55.33 으로 증가시킨다.
     * correct memory use 를 63.34 에서 71.00 으로 증가시킨다.
 * **VALID MEMORY SELECTION**
 
   * external memory 는 종종 outdated memory use 를 증가시킨다.
   * Qwen3-8B:
-
     * Full Dialog 의 56.16 에서 external memory condition 의 50.57–69.91 로 변한다.
   * DeepSeek-V4-Flash:
-
     * Full Dialog 의 16.34 에서 Mem0 사용 시 41.42, LightMem 사용 시 48.57 로 증가한다.
 
 이는 현재 system 이 memory 를 저장하고 재사용할 수는 있지만 어떤 memory 가 현재 valid 한지를 식별하는 데 자주 실패함을 시사한다.
@@ -411,7 +387,6 @@ Sec. 2.2 를 따라 query 시점에서 task-required memory 가 retrieval 되었
 Mem0, A-Mem, LightMem 전체에서 모든 error 의 **61–62%**는 relevant memory 가 이미 retrieval 된 이후에 발생한다.
 
 * 특히 A-Mem 에서 retrieved-but-wrong case 는 다음과 같다.
-
   * OBJECTIVE FACT JUDGMENT: 64%
   * MEMORY-EVIDENCE CONFLICT: 74%
   * VALID MEMORY SELECTION: 75%
@@ -423,15 +398,11 @@ Mem0, A-Mem, LightMem 전체에서 모든 error 의 **61–62%**는 relevant mem
 error source 는 task 와 system 에 따라 달라진다.
 
 * **MEMORY-EVIDENCE CONFLICT**
-
   * NaiveRAG 와 A-Mem 은 주로 retrieval 이후에 실패한다.
-
     * R+/A- 는 각각 82.9%, 74.1% 에 도달한다.
   * LightMem 과 SuperMemory 는 주로 retrieval 에서 실패한다.
-
     * R-/A- 는 각각 95.7%, 97.3% 에 도달한다.
 * **VALID MEMORY SELECTION**
-
   * 여러 system 은 relevant memory 를 retrieval 하지만 여전히 잘못된 선택을 한다.
   * 여러 system 에서 R+/A- 는 53.7–75.1% 에 이른다.
 
@@ -444,10 +415,8 @@ Q3 를 다루기 위해 저자는 reasoning behavioral guidance 가 memory-induc
 2 가지 lightweight intervention 을 평가한다.
 
 * **memory-caution instruction**
-
   * agent 에게 적절한 경우에만 memory 를 사용하도록 remind 한다.
 * **confirmation instruction**
-
   * 추가적인 “Are you sure?” confirmation 을 통해 자신의 answer 를 다시 고려하도록 요구한다.
 
 ![Figure 6](images/image-13.png)
@@ -459,14 +428,11 @@ Fig. 6 은 DeepSeek-V4-Flash 에서의 performance delta 를 제시한다. 전�
 memory-caution instruction 은 **MEMORY-EVIDENCE CONFLICT**에서 가장 도움이 된다. 이는 memory 가 evidence 를 override 하지 못하게 해야 한다는 desired behavior 와 일치한다.
 
 * MEMORY-EVIDENCE CONFLICT:
-
   * Full Dialog 는 31.6% 향상된다.
   * A-Mem 은 9.8% 향상된다.
 * 그러나 **PERSONALIZED MEMORY USE**에서는 모든 setting 에서 지속적으로 성능을 저하시킨다.
-
   * 감소 폭은 13.0–21.0% 이다.
 * 평균 effect 역시 제한적이다.
-
   * Full Dialog: +5.2%
   * Mem0: -1.2%
   * A-Mem: -1.3%
@@ -479,13 +445,11 @@ memory-caution instruction 은 **MEMORY-EVIDENCE CONFLICT**에서 가장 도움�
 confirmation instruction 은 전반적으로 performance 를 저하시킨다.
 
 * 평균 감소:
-
   * Full Dialog: 26.9%
   * Mem0: 18.6%
   * A-Mem: 27.7%
   * LightMem: 9.9%
 * **PERSONALIZED MEMORY USE**
-
   * 모든 setting 에서 22.0–46.3% 감소한다.
   * Mem0 가 가장 크게 감소한다.
 * **VALID MEMORY SELECTION**
@@ -499,12 +463,10 @@ confirmation instruction 은 전반적으로 performance 를 저하시킨다.
 Q4 를 다루기 위해 저자는 2 가지 대표적인 scenario 를 분석한다.
 
 * **MEMORY-EVIDENCE CONFLICT**
-
   * factual evidence 만 retrieval 되는 경우
   * conflicting memory 만 retrieval 되는 경우
   * 두 가지가 모두 retrieval 되는 경우로 instance 를 group 한다.
 * **VALID MEMORY SELECTION**
-
   * previous memory 만 retrieval 되는 경우
   * updated memory 만 retrieval 되는 경우
   * 두 memory 가 모두 retrieval 되는 경우로 instance 를 group 한다.
@@ -518,17 +480,14 @@ Tab. 2 는 각 retrieval group 의 proportion 과 corresponding accuracy 를 rep
 MEMORY-EVIDENCE CONFLICT 에서 failure 는 factual evidence 가 retrieval 되지 않는 것과 retrieval 이후 이를 우선시하지 못하는 것 모두에서 발생한다.
 
 * **LightMem**
-
   * 대부분 factual evidence 없이 conflicting memory 만 retrieval 한다.
   * valid case 의 89.0% 가 이 group 에 해당한다.
   * Acc 는 0.0 이다.
 * **Mem0**
-
   * Evidence Only 에서는 70.0 Acc 를 달성한다.
   * Fact + Memory 에서는 36.36 으로 감소한다.
   * Memory Only 에서는 6.49 로 감소한다.
 * **A-Mem**
-
   * 모든 valid case 에서 두 signal 을 모두 retrieval 한다.
   * 그러나 Acc 는 25.91 에 불과하다.
 
@@ -539,17 +498,14 @@ MEMORY-EVIDENCE CONFLICT 에서 failure 는 factual evidence 가 retrieval 되�
 VALID MEMORY SELECTION 에서 old memory 와 new memory 가 경쟁할 때 failure 가 발생한다.
 
 * **LightMem**
-
   * 주로 obsolete information 을 retrieval 한다.
   * valid case 의 70.57% 가 old memory 만 포함한다.
   * 이 group 의 Acc 는 12.15 이다.
 * **A-Mem**
-
   * case 의 98.57% 에서 old memory 와 updated memory 를 모두 retrieval 한다.
   * 그럼에도 Acc 는 24.06 에 불과하다.
   * 이는 retrieval 이후 current memory 를 선택하지 못하는 failure 를 보여준다.
 * **Mem0**
-
   * updated memory 만 retrieval 될 때 Acc 는 53.06 이다.
   * old memory 와 updated memory 가 함께 나타나면 Acc 는 26.38 로 감소한다.
 
