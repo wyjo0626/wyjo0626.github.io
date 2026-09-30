@@ -316,7 +316,7 @@ Q1 을 다루기 위해 저자는 MemSyco-Bench 에서 7 개의 기존 memory sy
 * memory 가 objective evidence 를 대체해서는 안 되는 scenario 에서는 **ACCURACY (Acc)**와 **SYCOPHANCY RATE (Syco. Rate)**를 report 한다.
 * memory 가 적절하게 사용되어야 하는 scenario 에서는 **ACCURACY (Acc)**와 **MEMORY-USE METRICS (Correct Mem. Use / Outdated Mem.)**를 report 한다.
 
-![Table 1](images/image-11.png)
+![Figure 11](images/image-11.png)
 
 Tab. 1 의 main result 로부터 다음 observation 을 얻는다.
 
