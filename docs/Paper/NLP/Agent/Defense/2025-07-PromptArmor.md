@@ -131,6 +131,8 @@ Injection 이 탐지된 즉시 data sample 전체를 단순하게 reject 하는 
 
 저자는 제안하는 defense 인 PromptArmor 를 설명한 뒤, 네 가지 핵심 관점에서 그 장점을 정성적으로 논의한다.
 
+![Figure 1](images/image-45.png)
+
 Fig. 1 에 나타난 것처럼 PromptArmor 는 추가적인 guardrail layer 로 동작하며, 기존 LLM agent 또는 application 을 수정할 필요가 없다.
 
 PromptArmor 는 각 data sample 이 core LLM, 즉 **backend LLM** 에 의해 처리되기 전에 잠재적인 injected prompt 를 탐지하고 제거하여 해당 sample 을 검사한다.
@@ -153,6 +155,8 @@ Injected prompt 에 명백한 pattern 이나 malicious language 가 존재하지
 Sec. 2 에서 설명한 것처럼 injected prompt 는 일반적으로 backend LLM 이 attacker 가 지정한 task 를 수행하도록 redirect 하는 instruction 을 도입하며, 이러한 task 는 종종 user intent 와 다르다.
 
 Guardrail LLM 에 적절한 prompt 를 제공하면 이러한 mismatch 를 인식하여 injected content 를 flag 하도록 만들 수 있다.
+
+![Figure 2](images/image-46.png)
 
 Fig. 2 는 PromptArmor 가 guardrail LLM 을 전략적으로 prompting 하여 injected prompt 를 탐지하고 제거하는 방법을 보여준다.
 
@@ -342,15 +346,15 @@ Combined ASR 은 각 injection goal 에 대해 4 개 attack 중 하나라도 성
 
 Tab. 1 은 AgentDojo benchmark 에서 서로 다른 model configuration 을 사용한 PromptArmor 의 performance 를 제시한다.
 
+![Table 1](images/image-47.png)
+
 * PromptArmor 는 defense 가 없는 baseline 의 ASR 54.53% 와 비교해 ASR 을 크게 감소시킨다.
 * PromptArmor-GPT-4.1 은 ASR 0.00% 로 완전한 defense 를 달성한다.
 * PromptArmor-GPT-3.5 는 PromptArmor configuration 중 가장 높은 ASR 인 6.84% 를 보인다.
 * PromptArmor 는 모든 configuration 에서 높은 UA 를 유지한다.
-
   * PromptArmor-o4-mini 는 76.35% 로 가장 높은 UA 를 달성하며, defense 가 없는 baseline 의 64.27% 를 능가한다.
   * 이는 PromptArmor 가 대부분의 injected prompt 를 제거하여 agent 가 원래 user task 를 계속 실행할 수 있기 때문이다.
 * PromptArmor 는 낮은 FPR 과 FNR 을 통해 매우 높은 detection accuracy 를 보여준다.
-
   * PromptArmor-GPT-4.1: FPR 0.56%, FNR 0.13%
   * PromptArmor-GPT-4o: FPR 0.07%, FNR 0.23%
   * PromptArmor-o4-mini: FPR 0.34%, FNR 0.47%
@@ -360,7 +364,6 @@ Tab. 1 은 AgentDojo benchmark 에서 서로 다른 model configuration 을 사�
 Baseline defense 는 제한적인 effectiveness 를 보인다.
 
 * Prompt augmentation method 인 Repeat Prompt 와 Delimiter 는 제한적인 protection 만을 달성한다.
-
   * Delimiter 의 ASR 은 51.51% 이다.
 * Deberta 는 FPR 28.41%, FNR 22.03% 를 보이며 utility 와 security 모두에서 더 낮은 performance 를 보인다.
 * DataSentinel 은 FNR 이 48.78% 로 매우 높기 때문에 attack 을 defense 하는 데 덜 효과적이다.
@@ -388,22 +391,11 @@ GPT-3.5 의 performance 를 향상시키기 위해 저자는 prompt 에 `"prompt
 
 저자는 GPT-4.1 에 `"What is prompt injection?"` 이라고 질문하여 definition 을 생성하고, 이 definition 을 Sec. 3 에서 설명한 기존 system prompt 와 함께 추가했다.
 
+![Table 2](images/image-48.png)
+
 Tab. 2 의 결과는 다음과 같다.
 
-* **definition 없이 GPT-3.5 를 사용하는 경우**
-
-  * FPR: 0.06%
-  * FNR: 60.24%
-  * UA: 70.07%
-  * ASR: 34.50%
-* **definition 을 포함하여 GPT-3.5 를 사용하는 경우**
-
-  * FPR: 11.24%
-  * FNR: 15.74%
-  * UA: 51.35%
-  * ASR: 6.84%
-
-따라서 GPT-3.5 는 definition 이 없을 경우 매우 높은 FNR 을 보이며, `"prompt injection"`의 definition 을 추가함으로써 performance 를 크게 향상시킬 수 있다.
+* GPT-3.5 는 definition 이 없을 경우 매우 높은 FNR 을 보이며, `"prompt injection"`의 definition 을 추가함으로써 performance 를 크게 향상시킬 수 있다.
 
 본 논문의 다른 모든 GPT-3.5 결과에서는 `"prompt injection"`의 definition 이 포함된 enhanced prompt 를 사용한다.
 
@@ -436,27 +428,22 @@ Tab. 2 의 결과는 다음과 같다.
 
 #### Results
 
+![Figure 3](images/image-49.png)
+
 Fig. 3 의 experiment result 에 따르면 model size 는 효과적인 detection performance 를 달성하는 데 결정적인 역할을 한다.
 
 * **Qwen3-0.6B**
-
   * 가장 작은 model 인 Qwen3-0.6B 는 reasoning 만으로 해결할 수 없는 근본적인 utility-security trade-off 를 보여준다.
   * Non-reasoning mode 에서는 FPR 이 62.57% 로 매우 높다.
-
     * clean input 을 contaminated input 으로 잘못 flag 하며 utility 를 심각하게 저해한다.
   * Reasoning 을 활성화하면 반대 극단으로 이동하여 FNR 이 75.71% 에 이른다.
-
     * 실제 attack 대부분을 탐지하지 못해 security 가 저하된다.
   * 이는 0.6B model 이 security 와 utility 를 동시에 유지하기 위한 충분한 capacity 를 가지고 있지 않음을 시사한다.
-
 * **Qwen3-8B**
-
   * 더 큰 model 로 이동하면 performance 가 크게 향상된다.
   * Qwen3-8B 는 security 와 utility 사이에서 합리적인 균형을 달성한다.
   * Reasoning 은 FPR 을 낮게 유지하면서 FNR 을 26.59% 에서 15.78% 로 감소시켜 명확한 이점을 제공한다.
-
 * **Qwen3-32B**
-
   * 이 experiment 에서 가장 큰 model 인 Qwen3-32B 는 GPT-4.1 과 비교할 수 있는 거의 완벽한 performance 를 달성한다.
   * Reasoning mode 사용 여부와 관계없이 FPR 과 FNR 이 모두 거의 0 에 접근한다.
 
@@ -519,27 +506,13 @@ AgentVigil 은 success rate 및 성공적인 task coverage 에서 얻은 feedbac
 
 #### Results
 
+![Table 3](images/image-50.png)
+
 Tab. 3 은 결과를 보여준다.
 
 * 어떠한 defense 도 적용하지 않을 경우 AgentVigil-NoDefense 는 Tab. 1 의 attack 보다 더 높은 ASR 을 달성한다.
-
-  * 이는 생성된 attack 의 effectiveness 를 검증한다.
-* **AgentVigil-NoDefense 에 PromptArmor 를 적용한 경우**
-
-  * FPR: 0.63%
-  * FNR: 4.86%
-  * UA: 76.11%
-  * ASR: 0.00%
-* **PromptArmor 를 대상으로 adaptive 하게 생성된 AgentVigil-Adaptive 에 PromptArmor 를 적용한 경우**
-
-  * FPR: 0.70%
-  * FNR: 2.26%
-  * UA: 73.12%
-  * ASR: 0.34%
-
-PromptArmor 는 AgentVigil-NoDefense 와 AgentVigil-Adaptive 모두에 대해 일관되게 낮은 FPR, FNR 및 ASR 을 달성한다.
-
-이는 PromptArmor 가 fuzzing-based adaptive attack 에 대해 robust 함을 보여준다.
+* PromptArmor 는 AgentVigil-NoDefense 와 AgentVigil-Adaptive 모두에 대해 일관되게 낮은 FPR, FNR 및 ASR 을 달성한다.
+  * 이는 PromptArmor 가 fuzzing-based adaptive attack 에 대해 robust 함을 보여준다.
 
 # 5. Related Work
 
